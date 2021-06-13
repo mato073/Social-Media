@@ -93,14 +93,14 @@ router.put("/follow/:id", async (req, res) => {
                 })
             }
             if (!user.followers.includes(req.body.userId)) {
-                await user.updateOne({$push:{followers:req.body.userId}})
-                await curentUser.updateOne({$push:{followings:req.params.id}})
+                await user.updateOne({ $push: { followers: req.body.userId } })
+                await curentUser.updateOne({ $push: { followings: req.params.id } })
                 return res.status(200).send({
                     message: 'User followed'
-                 })
+                })
             } else {
                 return res.status(400).send({
-                   message: 'user alrady followed'
+                    message: 'user alrady followed'
                 })
             }
         } catch (err) {
@@ -129,14 +129,14 @@ router.put("/unfollow/:id", async (req, res) => {
                 })
             }
             if (user.followers.includes(req.body.userId)) {
-                await user.updateOne({$pull:{followers:req.body.userId}})
-                await curentUser.updateOne({$pull:{followings:req.params.id}})
+                await user.updateOne({ $pull: { followers: req.body.userId } })
+                await curentUser.updateOne({ $pull: { followings: req.params.id } })
                 return res.status(200).send({
                     message: 'User unfollowed'
-                 })
+                })
             } else {
                 return res.status(400).send({
-                   message: 'you unfollowed this user alrady'
+                    message: 'you unfollowed this user alrady'
                 })
             }
         } catch (err) {
@@ -150,6 +150,5 @@ router.put("/unfollow/:id", async (req, res) => {
         })
     }
 })
-
 
 module.exports = router;
