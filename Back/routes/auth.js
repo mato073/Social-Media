@@ -47,7 +47,8 @@ router.post('/login', async (req, res) => {
             })
         }
         return res.status(200).send({
-            message: "User login"
+            message: "User login",
+            user: user
         })
     } catch (err) {
         return res.status(500).send({
