@@ -94,7 +94,7 @@ router.put("/follow/:id", async (req, res) => {
             }
             if (!user.followers.includes(req.body.userId)) {
                 await user.updateOne({$push:{followers:req.body.userId}})
-                await curentUser.updateOne({$push:{followins:req.params.id}})
+                await curentUser.updateOne({$push:{followings:req.params.id}})
                 return res.status(200).send({
                     message: 'User followed'
                  })
@@ -103,10 +103,6 @@ router.put("/follow/:id", async (req, res) => {
                    message: 'user alrady followed'
                 })
             }
-
-            return res.status(200).send({
-                user: rest
-            })
         } catch (err) {
             return res.status(500).send({
                 error: err
@@ -118,5 +114,42 @@ router.put("/follow/:id", async (req, res) => {
         })
     }
 })
+
+//Unfollow user
+
+router.put("/unfollow/:id", async (req, res) => {
+
+    if (req.body.userId !== req.params.id) {
+        try {
+            const user = await User.findById(req.params.id);
+            const curentUser = await User.findById(req.body.userId);
+            if (!user || !curentUser) {
+                return res.status(400).send({
+                    message: 'User not found'
+                })
+            }
+            if (user.followers.includes(req.body.userId)) {
+                await user.updateOne({$pull:{followers:req.body.userId}})
+                await curentUser.updateOne({$pull:{followings:req.params.id}})
+                return res.status(200).send({
+                    message: 'User unfollowed'
+                 })
+            } else {
+                return res.status(400).send({
+                   message: 'you unfollowed this user alrady'
+                })
+            }
+        } catch (err) {
+            return res.status(500).send({
+                error: err
+            })
+        }
+    } else {
+        return res.status(403).send({
+            message: 'You cant unfollow yourself'
+        })
+    }
+})
+
 
 module.exports = router;
