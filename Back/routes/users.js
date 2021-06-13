@@ -2,8 +2,9 @@ const router = require("express").Router();
 const bycrip = require('bcrypt');
 const User = require("../models/User")
 
+//Update User
 router.put("/:id", async (req, res) => {
-    if (req.body.userId === req.params.id || req.user.isAdmin) {
+    if (req.body.userId === req.params.id || req.body.isAdmin) {
 
         if (req.body.password) {
             try {
@@ -32,6 +33,88 @@ router.put("/:id", async (req, res) => {
     } else {
         return res.status(403).send({
             message: 'You can update only your acount'
+        })
+    }
+})
+
+//Del user
+router.delete("/:id", async (req, res) => {
+    if (req.body.userId === req.params.id || req.body.isAdmin) {
+        try {
+            const user = await User.findByIdAndDelete(req.params.id);
+            return res.status(200).send({
+                message: "user as bean deleted",
+            })
+        } catch (err) {
+            return res.status(500).send({
+                message: "An error as ocured",
+                error: err
+            })
+        }
+    } else {
+        return res.status(403).send({
+            message: 'You can only delete your acount'
+        })
+    }
+})
+
+//Get user
+
+router.get("/:id", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(400).send({
+                message: 'User not found'
+            })
+        }
+        const { password, createdAt, updatedAt, ...rest } = user._doc;
+        return res.status(200).send({
+            user: rest
+        })
+    } catch (err) {
+        return res.status(500).send({
+            error: err
+        })
+    }
+})
+
+//follow a user
+
+router.put("/follow/:id", async (req, res) => {
+
+    if (req.body.userId !== req.params.id) {
+        try {
+            const user = await User.findById(req.params.id);
+            const curentUser = await User.findById(req.body.userId);
+            if (!user || !curentUser) {
+                return res.status(400).send({
+                    message: 'User not found'
+                })
+            }
+            if (!user.followers.includes(req.body.userId)) {
+                await user.updateOne({$push:{followers:req.body.userId}})
+                await curentUser.updateOne({$push:{followins:req.params.id}})
+                return res.status(200).send({
+                    message: 'User followed'
+                 })
+            } else {
+                return res.status(400).send({
+                   message: 'user alrady followed'
+                })
+            }
+
+            return res.status(200).send({
+                user: rest
+            })
+        } catch (err) {
+            return res.status(500).send({
+                error: err
+            })
+        }
+    } else {
+        return res.status(403).send({
+            message: 'You cant follow yourself'
         })
     }
 })
