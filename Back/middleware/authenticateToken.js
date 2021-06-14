@@ -9,17 +9,7 @@ exports.authenticateToken = (req, res, next) => {
     jwt.verify(token, process.env.JWT_TOKEN_SECRET, (err, data) => {
         if (err) return res.sendStatus(403);
         req.id = data.id,
-        req.role = data.role
+            req.role = data.role
         next();
     });
 }
-
-exports.userRoleRequired = (req, res, next) => {
-    if (req.jwt.role === false) {
-        return next();
-    } else {
-        return res.status(403).send({
-            message: "You need to have the user role to use this api"
-        });
-    }
-};

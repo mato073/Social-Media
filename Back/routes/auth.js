@@ -50,18 +50,33 @@ router.post('/login', async (req, res) => {
         }
         const id = user._id;
         const role = user.isAdmin
-        const token = jwt.sign({ id: id, role: role}, process.env.JWT_TOKEN_SECRET);
-        //const refreshToken = jwt.sign(process.env.JWT_REFRESH_SECRET);
+        const token = jwt.sign({ id: id, role: role }, process.env.JWT_TOKEN_SECRET, { expiresIn: '20m' });
+        const refreshToken = jwt.sign({ id: id, role: role }, process.env.JWT_REFRESH_SECRET);
+        //refreshToken token in db
         return res.status(200).send({
             message: "User login",
             token: token,
-            //refreshToken: refreshToken
+            refreshToken: refreshToken
         })
     } catch (err) {
         return res.status(500).send({
             message: "An error as ocured"
         })
     }
+})
+
+router.post('/token', (req, res) => {
+    const refreshToken = req.body.token;
+    if (refreshToken === null) res.sendStatus(401);
+    //check token in db; if err res.sendStatus(403);
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, data) => {
+        if (err) return res.sendStatus(403);
+        const token = jwt.sign({ id: data.id, role: data.role }, process.env.JWT_TOKEN_SECRET, { expiresIn: '20m' });
+        res.status(200).json({
+            token: token
+        })
+    })
+
 })
 
 module.exports = router;
