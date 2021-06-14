@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bycrip = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 //Register
 router.post("/register", async (req, res) => {
@@ -34,7 +35,8 @@ router.post("/register", async (req, res) => {
 //Login
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({email: req.body.email})
+        const user = await User.findOne({ email: req.body.email })
+        console.log(user._id);
         if (!user) {
             return res.status(400).send({
                 message: 'Bad email or password'
@@ -46,9 +48,14 @@ router.post('/login', async (req, res) => {
                 message: 'Bad email or password'
             })
         }
+        const id = user._id;
+        const role = user.isAdmin
+        const token = jwt.sign({ id: id, role: role}, process.env.JWT_TOKEN_SECRET);
+        //const refreshToken = jwt.sign(process.env.JWT_REFRESH_SECRET);
         return res.status(200).send({
             message: "User login",
-            user: user
+            token: token,
+            //refreshToken: refreshToken
         })
     } catch (err) {
         return res.status(500).send({

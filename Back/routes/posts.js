@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
-
+const validationMiddleware = require('../middleware/authenticateToken')
 
 //Create post
-router.post('/', async (req, res) => {
+router.post('/', validationMiddleware.authenticateToken, async (req, res) => {
     const newPost = new Post(req.body);
 
     try {
@@ -19,12 +19,12 @@ router.post('/', async (req, res) => {
 })
 
 //Update post
-router.put('/:id', async (req, res) => {
+router.put('/:id', validationMiddleware.authenticateToken, async (req, res) => {
 
     try {
         const post = await Post.findById(req.params.id);
 
-        if (post.userId === req.body.userId) {
+        if (post.userId === req.id) {
             await post.updateOne({ $set: req.body });
             return res.status(200).json("Post updated")
         } else {
@@ -39,11 +39,11 @@ router.put('/:id', async (req, res) => {
 })
 
 //Delete a post
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', validationMiddleware.authenticateToken, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
 
-        if (post.userId === req.body.userId) {
+        if (post.userId === req.id) {
             await post.deleteOne();
             return res.status(200).json("Post deleted")
         } else {
@@ -57,14 +57,14 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.put("/like/:id", async (req, res) => {
+router.put("/like/:id", validationMiddleware.authenticateToken, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
-        if (!post.likes.includes(req.body.userId)) {
-            await post.updateOne({ $push: { likes: req.body.userId } });
+        if (!post.likes.includes(req.id)) {
+            await post.updateOne({ $push: { likes: req.id } });
             return res.status(200).json("Post liked");
         } else {
-            await post.updateOne({ $pull: { likes: req.body.userId } });
+            await post.updateOne({ $pull: { likes: req.id } });
             return res.status(200).json("Post disliked");
         }
     } catch (err) {
@@ -72,8 +72,9 @@ router.put("/like/:id", async (req, res) => {
     }
 })
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", validationMiddleware.authenticateToken, async (req, res) => {
     try {
+        console.log(req.params.id);
         const post = await Post.findById(req.params.id);
         return res.status(200).send({
             post
@@ -83,14 +84,13 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-router.get("/timeligne/all", async (req, res) => {
+router.get("/timeligne/all", validationMiddleware.authenticateToken, async (req, res) => {
     try {
-        const curentuser = await User.findById(req.body.userId);
-        console.log(curentuser);
-        const userPost = await Post.find({userId: curentuser._id});
+        const curentuser = await User.findById(req.id);
+        const userPost = await Post.find({ userId: curentuser._id });
         const friendPost = await Promise.all(
             curentuser.followings.map((id) => {
-                return Post.find({userId: id});
+                return Post.find({ userId: id });
             })
         );
         res.json(userPost.concat(...friendPost));
