@@ -6,7 +6,7 @@ const imglink = 'https://lh3.googleusercontent.com/proxy/kwmYenYFq4b3Y_WoDaR5--E
 const other = '/assets/person/1.jpeg'
 const Topbar = () => {
     return (
-        <div className="Container">
+        <div className="topbarContainer">
             <div className="topbarLeft">
                 <span className="logo">The best</span>
             </div>
