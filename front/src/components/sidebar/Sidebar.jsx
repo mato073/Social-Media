@@ -1,6 +1,16 @@
 import React from 'react'
 import './sidebar.css'
-import { RssFeed } from '@material-ui/icons'
+import {
+    RssFeed,
+    Chat,
+    PlayCircleFilledOutlined,
+    Group,
+    Bookmark,
+    HelpOutline,
+    WorkOutline,
+    Event,
+    School,
+} from "@material-ui/icons";
 
 const Sidebar = () => {
     return (
@@ -8,32 +18,80 @@ const Sidebar = () => {
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <RssFeed className="sidebarIcon" />
+                        <span className="sidebarListItemText">Feed</span>
                     </li>
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <Chat className="sidebarIcon" />
+                        <span className="sidebarListItemText">Chats</span>
                     </li>
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <PlayCircleFilledOutlined className="sidebarIcon" />
+                        <span className="sidebarListItemText">Videos</span>
                     </li>
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <Group className="sidebarIcon" />
+                        <span className="sidebarListItemText">Groups</span>
                     </li>
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <Bookmark className="sidebarIcon" />
+                        <span className="sidebarListItemText">Bookmarks</span>
                     </li>
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <HelpOutline className="sidebarIcon" />
+                        <span className="sidebarListItemText">Questions</span>
                     </li>
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarListItemIcon" />
-                        <span className="sidebarListItemText">This is a test</span>
+                        <WorkOutline className="sidebarIcon" />
+                        <span className="sidebarListItemText">Jobs</span>
+                    </li>
+                    <li className="sidebarListItem">
+                        <Event className="sidebarIcon" />
+                        <span className="sidebarListItemText">Events</span>
+                    </li>
+                    <li className="sidebarListItem">
+                        <School className="sidebarIcon" />
+                        <span className="sidebarListItemText">Courses</span>
+                    </li>
+                </ul>
+                <button className="sidebarButton">Show More</button>
+                <hr className="sidebarHr" />
+                <ul className="sidebarFriendList">
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
+                    </li>
+                    <li className="sidebarFriend">
+                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
+                        <span className="sidebarFriendName">Matt Stone</span>
                     </li>
                 </ul>
             </div>
