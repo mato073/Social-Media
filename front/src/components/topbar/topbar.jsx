@@ -12,15 +12,15 @@ const Topbar = () => {
             </div>
             <div className="topbarCenter">
                 <div className="searchbar">
-                    <Search className="searchIcon"/>
+                    <Search className="searchIcon" />
                     <input placeholder="Search friend, post or video" className="searchInput" />
                 </div>
             </div>
             <div className="topbarRight">
-                <dev className="topbarlinks">
+                <div className="topbarlinks">
                     <span className="topbarLink">Homepage</span>
                     <span className="topbarLink">Timeline</span>
-                </dev>
+                </div>
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
                         <Person />
@@ -34,8 +34,8 @@ const Topbar = () => {
                         <Notifications />
                         <span className="topbarIconBadge">1</span>
                     </div>
-                    <img /* src={imglink} */ src={other} alt="" className="topbarImg" />
                 </div>
+                <img /* src={imglink} */ src={other} alt="" className="topbarImg" />
             </div>
         </div>
     )
