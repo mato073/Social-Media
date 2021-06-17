@@ -39,6 +39,17 @@
 
 .sidebarIcon {
     margin-right: 15px;
+    width: 29px;
+    height: 29px;
+    object-fit: cover;
+}
+
+.sidebarIconFeed {
+    margin-right: 17px;
+    margin-left: 3px;
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
 }
 
 .sidebarButton {

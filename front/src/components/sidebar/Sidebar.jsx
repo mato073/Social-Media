@@ -1,16 +1,5 @@
 import React from 'react'
 import './sidebar.css'
-import {
-    RssFeed,
-    Chat,
-    PlayCircleFilledOutlined,
-    Group,
-    Bookmark,
-    HelpOutline,
-    WorkOutline,
-    Event,
-    School,
-} from "@material-ui/icons";
 
 const Sidebar = () => {
     return (
@@ -18,40 +7,36 @@ const Sidebar = () => {
             <div className="sidebarWrapper">
                 <ul className="sidebarList">
                     <li className="sidebarListItem">
-                        <RssFeed className="sidebarIcon" />
+                        <img src="/assets/icon/feed.png" className="sidebarIconFeed" alt="" />
                         <span className="sidebarListItemText">Feed</span>
                     </li>
                     <li className="sidebarListItem">
-                        <Chat className="sidebarIcon" />
+                        <img src="/assets/icon/chat.png" alt="" className="sidebarIcon" />
                         <span className="sidebarListItemText">Chats</span>
                     </li>
                     <li className="sidebarListItem">
-                        <PlayCircleFilledOutlined className="sidebarIcon" />
+                        <img src="/assets/icon/video.png" alt="" className="sidebarIcon" />
                         <span className="sidebarListItemText">Videos</span>
                     </li>
                     <li className="sidebarListItem">
-                        <Group className="sidebarIcon" />
+                        <img src="/assets/icon/groupe.png" alt="" className="sidebarIcon" />
                         <span className="sidebarListItemText">Groups</span>
                     </li>
                     <li className="sidebarListItem">
-                        <Bookmark className="sidebarIcon" />
+                        <img src="/assets/icon/bookmark.png" alt="" className="sidebarIcon" />
                         <span className="sidebarListItemText">Bookmarks</span>
                     </li>
                     <li className="sidebarListItem">
-                        <HelpOutline className="sidebarIcon" />
-                        <span className="sidebarListItemText">Questions</span>
+                        <img src="/assets/icon/weather.png" alt="" className="sidebarIcon" />
+                        <span className="sidebarListItemText">Weather</span>
                     </li>
                     <li className="sidebarListItem">
-                        <WorkOutline className="sidebarIcon" />
-                        <span className="sidebarListItemText">Jobs</span>
+                        <img src="/assets/icon/friends.png" alt="" className="sidebarIcon" />
+                        <span className="sidebarListItemText">Friends</span>
                     </li>
                     <li className="sidebarListItem">
-                        <Event className="sidebarIcon" />
+                        <img src="/assets/icon/event.png" alt="" className="sidebarIcon" />
                         <span className="sidebarListItemText">Events</span>
-                    </li>
-                    <li className="sidebarListItem">
-                        <School className="sidebarIcon" />
-                        <span className="sidebarListItemText">Courses</span>
                     </li>
                 </ul>
                 <button className="sidebarButton">Show More</button>
@@ -73,29 +58,9 @@ const Sidebar = () => {
                         <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
                         <span className="sidebarFriendName">Matt Stone</span>
                     </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
-                        <span className="sidebarFriendName">Matt Stone</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
-                        <span className="sidebarFriendName">Matt Stone</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
-                        <span className="sidebarFriendName">Matt Stone</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
-                        <span className="sidebarFriendName">Matt Stone</span>
-                    </li>
-                    <li className="sidebarFriend">
-                        <img src="/assets/person/2.jpeg" alt="" className="sidebarFriendImg" />
-                        <span className="sidebarFriendName">Matt Stone</span>
-                    </li>
                 </ul>
             </div>
-        </div>
+        </div >
     )
 }
 

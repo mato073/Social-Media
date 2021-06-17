@@ -2,13 +2,12 @@ import React from 'react'
 import './share.css'
 import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons'
 
-const link = 'https://lh3.googleusercontent.com/proxy/DnluxTqRa1k7mHq_1ZrNzIlAkxMpSG6ZEUTA_U8X6bkLQjsf_zJDosEdhqDXTPX2V-8Y_EumsAl76PfbQE1PX0OqeFq6qEIVFK2ZvBjUMlA'
 const Share = () => {
     return (
         <div className="shareContainer">
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img className="shareProfileImg" src={link} /*  src='/assets/person/1.jpeg' */ alt="" />
+                    <img className="shareProfileImg" src='/assets/person/1.jpeg' alt="" />
                     <input type="text" placeholder="Share your day" className="shareInput" />
                 </div>
                 <hr className="shareHr" />
