@@ -1,37 +1,38 @@
 import React from 'react'
 import './post.css'
 import { MoreVert } from '@material-ui/icons'
+import { Users } from '../../dummydata'
 
-const link = "https://s.smutty.com/media_smutty/k/n/o/b/b/knobbyhardone-ybatq-04913c.jpg"
-const link2 = "https://di.phncdn.com/videos/202005/03/309982831/original/(m=eaAaGwObaaaa)(mh=FFwMK9N6R_s6RXWD)16.jpg"
-const link3 = "https://ci.phncdn.com/videos/202011/08/368267022/thumbs_5/(m=eaAaGwObaaaa)(mh=BQwlA0i3QzNVJy9h)9.jpg"
+const Post = (props) => {
 
-const Post = () => {
+    const { desc, photo, date, like, comment, userId } = props.post
+    const user = Users.filter((user) => user.id === userId);
+
     return (
         <div className="postContainer">
             <div className="postWapper">
                 <div className="postTop">
                     <div className="postTopleft">
-                        <img className="postProfileImg" src={link} alt="" /*src='/assets/person/1.jpeg'*/ ></img>
-                        <span className="postUserName"> Slutty nurse </span>
-                        <span className="postDate"> 5 minutes ago </span>
+                        <img className="postProfileImg" alt="" src={user[0].profilePicture} ></img>
+                        <span className="postUserName"> {user[0].username} </span>
+                        <span className="postDate"> {date} </span>
                     </div>
                     <div className="postTopRight">
                         <MoreVert />
                     </div>
                 </div>
                 <div className="postCenter">
-                    <span className="postText">I love my tits do you do to ?</span>
-                    <img className="postImg" src={link3}  /* src='/assets/post/1.jpeg' */ alt="" />
+                    {desc !== undefined && (<span className="postText">{desc}</span>)}
+                    <img className="postImg" src={photo} alt="" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
                         <img className="likeIcon" src='/assets/like.png' alt="" />
                         <img className="likeIcon" src='/assets/heart.png' alt="" />
-                        <span className="likeCounter">1000 people like this</span>
+                        <span className="likeCounter">{like}</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText">9 comments</span>
+                        <span className="postCommentText">{comment} comments</span>
                     </div>
                 </div>
             </div>
