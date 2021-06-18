@@ -1,5 +1,7 @@
 import React from 'react'
 import './rightbar.css'
+import { Users } from '../../dummydata'
+import Online from '../Online/Online'
 
 const Righbar = () => {
     return (
@@ -12,13 +14,11 @@ const Righbar = () => {
                 <img src="/assets/ad.png" className="rightbarAd" alt=""></img>
                 <h4 className="rightbarTitlte">Online friends</h4>
                 <ul className="rightbarFriendsList">
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg" src="assets/person/RileyReid.jpg" alt="" />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">Riley Reid</span>
-                    </li>
+                    {
+                        Users.map(user => (
+                            <Online key={user.id} user={user} />
+                        ))
+                    }
                 </ul>
             </div>
         </div>

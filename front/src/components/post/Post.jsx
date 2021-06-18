@@ -6,7 +6,14 @@ import { Users } from '../../dummydata'
 const Post = (props) => {
 
     const { desc, photo, date, like, comment, userId } = props.post
+    const [liked, setLiked] = React.useState(false);
+    const [likeNumber, setLikeNumber] = React.useState(like);
     const user = Users.filter((user) => user.id === userId);
+
+    const likePost = () => {
+        setLikeNumber(liked ? likeNumber - 1 : likeNumber + 1);
+        setLiked(!liked);
+    }
 
     return (
         <div className="postContainer">
@@ -27,9 +34,9 @@ const Post = (props) => {
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        <img className="likeIcon" src='/assets/like.png' alt="" />
-                        <img className="likeIcon" src='/assets/heart.png' alt="" />
-                        <span className="likeCounter">{like}</span>
+                        <img className="likeIcon" src='/assets/like.png' alt="" onClick={likePost} />
+                        <img className="likeIcon" src='/assets/heart.png' alt="" onClick={likePost} />
+                        <span className="likeCounter">{likeNumber}</span>
                     </div>
                     <div className="postBottomRight">
                         <span className="postCommentText">{comment} comments</span>
