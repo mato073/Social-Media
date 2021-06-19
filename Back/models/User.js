@@ -1,12 +1,19 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    username: {
+    firstname: {
         type: String,
         require: true,
-        min: 3,
+        min: 2,
+        max: 25,
+        unique: false
+    },
+    lastname: {
+        type: String,
+        require: true,
+        min: 2,
         max: 20,
-        unique: true
+        unique: false
     },
     email: {
         type: String,
@@ -50,6 +57,10 @@ const UserSchema = new mongoose.Schema({
     from: {
         type: String,
         max: 50
+    },
+    job: {
+        type: String,
+        max: 150
     },
     relationship: {
         type: String,

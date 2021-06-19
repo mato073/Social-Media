@@ -5,7 +5,14 @@ const validationMiddleware = require('../middleware/authenticateToken')
 
 //Create post
 router.post('/', validationMiddleware.authenticateToken, async (req, res) => {
-    const newPost = new Post(req.body);
+    const user = await User.findById(req.body.userId);
+    const postUser = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        userphoto: user?.profilePicture
+    }
+    const post = {user: postUser, ...req.body}
+    const newPost = new Post(post);
 
     try {
         const savedPost = await newPost.save();

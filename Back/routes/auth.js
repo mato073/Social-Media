@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 
 //Register
 router.post("/register", async (req, res) => {
-    if (!req.body.username || !req.body.email || !req.body.password) {
+    if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
         return res.status(400).send({
             message: "Bad argument"
         })
@@ -15,7 +15,8 @@ router.post("/register", async (req, res) => {
         const hashedPassword = await bycrip.hash(req.body.password, salt);
 
         const user = await new User({
-            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
             email: req.body.email,
             password: hashedPassword
         });
