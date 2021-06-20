@@ -20,7 +20,6 @@ router.post("/register", async (req, res) => {
             email: req.body.email,
             password: hashedPassword
         });
-
         await user.save();
         return res.status(200).send({
             message: "User have beab created"

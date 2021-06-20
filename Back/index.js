@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
+var cors = require('cors')
 
 //routes
 const userRoute = require('./routes/users');
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(cors())
 
 app.use("/users", userRoute);
 app.use("/auth", authRoute);

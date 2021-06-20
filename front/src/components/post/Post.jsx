@@ -4,7 +4,7 @@ import { MoreVert } from '@material-ui/icons'
 import { Users } from '../../dummydata'
 
 const Post = (props) => {
-
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { desc, photo, date, like, comment, userId } = props.post
     const [liked, setLiked] = React.useState(false);
     const [likeNumber, setLikeNumber] = React.useState(like);
@@ -30,12 +30,12 @@ const Post = (props) => {
                 </div>
                 <div className="postCenter">
                     {desc !== undefined && (<span className="postText">{desc}</span>)}
-                    <img className="postImg" src={photo} alt="" />
+                    <img className="postImg" src={`${PF}/${photo}`} alt="" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        <img className="likeIcon" src='/assets/like.png' alt="" onClick={likePost} />
-                        <img className="likeIcon" src='/assets/heart.png' alt="" onClick={likePost} />
+                        <img className="likeIcon" src={`${PF}/like.png`} alt="" onClick={likePost} />
+                        <img className="likeIcon" src={`${PF}/heart.png`} alt="" onClick={likePost} />
                         <span className="likeCounter">{likeNumber}</span>
                     </div>
                     <div className="postBottomRight">
