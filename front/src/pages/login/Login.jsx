@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './login.css'
+import { useHistory } from "react-router-dom";
+import { get_user } from '../../redux/Actions/Actions'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
+    const history = useHistory();
+    const dispatch = useDispatch()
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    const login = () => {
+        dispatch(get_user(email, password)).then((data) => {
+            if (data.type !== 'USER_ERR')
+                history.push('/home')
+        })
+    }
+
+    const goToHistory = async () => {
+        history.push('/register')
+    }
     return (
         <div className="loginContainer">
             <div className="loginWrapper">
@@ -11,11 +29,12 @@ const Login = () => {
                 </div>
                 <div className="loginRight">
                     <div className="loginBox">
-                        <input className="loginInput" type="email" placeholder="email" />
-                        <input className="loginInput" type="password" placeholder="password" />
-                        <button className="loginButton" >Log In</button>
+                        <h3 className="loginlogo">Login</h3>
+                        <input className="loginInput" type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+                        <input className="loginInput" type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                        <button className="loginButton" onClick={login}>Log In</button>
                         <span className="loginForgot">Forgot password ?</span>
-                        <button className="loginRegisterButton" >Register</button>
+                        <button className="loginRegisterButton" onClick={goToHistory}>Register</button>
                     </div>
                 </div>
             </div>

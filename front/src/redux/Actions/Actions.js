@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const {BASE_URL} = process.env();
+const { REACT_APP_BASE_URL } = process.env;
 
 export function send_posts(posts) {
     return {
@@ -37,8 +37,8 @@ export function get_notification(planning) {
     }
 }
 
-export function get_posts() {
-    const url = `${BASE_URL}/auth/token`
+export function get_posts(token) {
+    const url = `${REACT_APP_BASE_URL}/auth/token`
     const data = {
         token: token
     }
@@ -47,16 +47,16 @@ export function get_posts() {
             const result = await axios.post(url, data);
             return dispatch(send_posts(result.data));
         } catch (err) {
-            return dispatch(send_posts_err(err.data));
+            return dispatch(send_posts_err(err));
         }
     }
 }
 
 export function get_user(email, password) {
-    const url = `${BASE_URL}/auth/login`
+    const url = `${REACT_APP_BASE_URL}/auth/login`
     const data = {
-        email: email,
-        password: password
+        "email": email,
+        "password": password
     }
     return async (dispatch) => {
         try {
@@ -68,9 +68,9 @@ export function get_user(email, password) {
     }
 }
 
-export function get_notifications() {
+/* export function get_notifications() {
     const data = user;
     return async (dispatch) => {
         dispatch(send_user(data));
     }
-}
+} */

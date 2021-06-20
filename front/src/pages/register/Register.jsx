@@ -9,7 +9,7 @@ const Register = (props) => {
     const [lastname, setLastname] = useState(null);
     const [password, setPassword] = useState(null);
     const [password2, setPassword2] = useState(null);
-    let history = useHistory();
+    const history = useHistory();
 
     const registerNewUser = async () => {
         const { history } = props;
@@ -23,6 +23,10 @@ const Register = (props) => {
         console.log(result);
         if (result.status === 200)
             history.push('/')
+    }
+
+    const goToLogin = () => {
+        history.push('/')
     }
 
     return (
@@ -41,7 +45,7 @@ const Register = (props) => {
                         <input className="registerInput" type="password" placeholder="Password" onChange={(value) => setPassword(value.target.value)} />
                         <input className="registerInput" type="password" placeholder="Confirm password" onChange={(value) => setPassword2(value.target.value)} />
                         <button className="registerButton" onClick={registerNewUser} >Register</button>
-                        <button className="registerRegisterButton">Log In</button>
+                        <button className="registerRegisterButton" onClick={goToLogin}>Log In</button>
                     </div>
                 </div>
             </div>
