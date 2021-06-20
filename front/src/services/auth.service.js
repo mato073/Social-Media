@@ -27,11 +27,10 @@ export async function registerUser(firstname, lastname, email, password) {
     }
     try {
         const result = await axios.post(url, data);
-        return result.data;
+        return result;
     } catch (err) {
-        return err.data;
+        return err;
     }
-    return true
 }
 
 /* export const getNewToken = (token) => {

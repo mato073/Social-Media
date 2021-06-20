@@ -13,7 +13,6 @@ router.post("/register", async (req, res) => {
     try {
         const salt = await bycrip.genSalt(10);
         const hashedPassword = await bycrip.hash(req.body.password, salt);
-
         const user = await new User({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -25,7 +24,8 @@ router.post("/register", async (req, res) => {
             message: "User have beab created"
         })
     } catch (err) {
-        return res.status(500).send({
+        return res.status(500).send( console.log(err),{
+            
             message: "An error as ocured",
             error: err
         })
