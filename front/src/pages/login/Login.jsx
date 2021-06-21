@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './login.css'
 import { useHistory } from "react-router-dom";
-import { get_user } from '../../redux/Actions/Actions'
+import { get_token } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const login = () => {
-        dispatch(get_user(email, password)).then((data) => {
+        dispatch(get_token(email, password)).then((data) => {
             if (data.type !== 'USER_ERR')
                 history.push('/home')
         })

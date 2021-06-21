@@ -8,8 +8,8 @@ exports.authenticateToken = (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_TOKEN_SECRET, (err, data) => {
         if (err) return res.sendStatus(403);
-        req.id = data.id,
-            req.role = data.role
+        req.id = data.id;
+        req.role = data.role;
         next();
     });
 }

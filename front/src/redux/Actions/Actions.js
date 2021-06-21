@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosInstance from '../../helper/axiosInterseptor'
 
 const { REACT_APP_BASE_URL } = process.env;
 
@@ -30,6 +31,20 @@ export function send_user_err(err) {
     }
 }
 
+export function send_token(token) {
+    return {
+        type: 'TOKEN',
+        token: token
+    }
+}
+
+export function send_token_err(err) {
+    return {
+        type: 'TOKEN_ERR',
+        err: err
+    }
+}
+
 export function get_notification(planning) {
     return {
         type: 'NOTIFICATIONS',
@@ -37,22 +52,7 @@ export function get_notification(planning) {
     }
 }
 
-export function get_posts(token) {
-    const url = `${REACT_APP_BASE_URL}/auth/token`
-    const data = {
-        token: token
-    }
-    return async (dispatch) => {
-        try {
-            const result = await axios.post(url, data);
-            return dispatch(send_posts(result.data));
-        } catch (err) {
-            return dispatch(send_posts_err(err));
-        }
-    }
-}
-
-export function get_user(email, password) {
+export function get_token(email, password) {
     const url = `${REACT_APP_BASE_URL}/auth/login`
     const data = {
         "email": email,
@@ -61,9 +61,24 @@ export function get_user(email, password) {
     return async (dispatch) => {
         try {
             const result = await axios.post(url, data);
-            return dispatch(send_user(result.data));
+            return dispatch(send_token(result.data));
         } catch (err) {
-            return dispatch(send_user_err(err.data));
+            return dispatch(send_token_err(err));
+        }
+    }
+}
+
+export function get_posts() {
+    const url = `${REACT_APP_BASE_URL}/post/timeligne/all`
+    console.log('ici');
+    return async (dispatch) => {
+        try {
+            const result = await axiosInstance().get(url);
+            console.log(result.data);
+            return dispatch(send_posts(result.data));
+        } catch (err) {
+            console.log(err);
+            return dispatch(send_token_err(err));
         }
     }
 }

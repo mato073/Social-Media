@@ -1,17 +1,17 @@
 const initialState = {
-    rooms: []
+    token: []
 };
 
-function Rooms_reducer(state = initialState, action) {
+function Token_reducer(state = initialState, action) {
     switch (action.type) {
-        case "ROOMS":
+        case "TOKEN":
             return {
                 ...state,
-                rooms: action.rooms
+                token: action.token
             };
         default:
             return state;
     }
 }
 
-export default Rooms_reducer;
+export default Token_reducer;

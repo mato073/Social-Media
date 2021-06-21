@@ -2,16 +2,18 @@ import React from 'react'
 import './feed.css'
 import Share from '../../components/share/Share'
 import Post from "../../components/post/Post"
-import { Posts } from '../../dummydata'
+/* import { Posts } from '../../dummydata' */
+import { connect} from 'react-redux';
 
 
-const Feed = () => {
+
+const Feed = ({posts}) => {
     return (
         <div className="feed" >
             <div className="feedWrapper">
                 <Share />
                 {
-                    Posts.map(post => (
+                    posts.map(post => (
                         <Post key={post.id} post={post} />
                     ))
                 }
@@ -20,4 +22,8 @@ const Feed = () => {
     )
 }
 
-export default Feed
+const mapStateToProps = (state) => ({
+    posts: state.Posts_reducer.posts,
+
+});
+export default connect(mapStateToProps)(Feed);

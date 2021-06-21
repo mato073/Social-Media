@@ -5,13 +5,13 @@ const validationMiddleware = require('../middleware/authenticateToken')
 
 //Create post
 router.post('/', validationMiddleware.authenticateToken, async (req, res) => {
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.id);
     const postUser = {
         firstname: user.firstname,
         lastname: user.lastname,
         userphoto: user?.profilePicture
     }
-    const post = {user: postUser, ...req.body}
+    const post = { user: postUser, ...req.body, userId: user._id }
     const newPost = new Post(post);
 
     try {
@@ -22,7 +22,6 @@ router.post('/', validationMiddleware.authenticateToken, async (req, res) => {
             error: err
         })
     }
-
 })
 
 //Update post
@@ -64,6 +63,7 @@ router.delete('/:id', validationMiddleware.authenticateToken, async (req, res) =
     }
 })
 
+//Like post
 router.put("/like/:id", validationMiddleware.authenticateToken, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
@@ -79,9 +79,9 @@ router.put("/like/:id", validationMiddleware.authenticateToken, async (req, res)
     }
 })
 
+//Get on post
 router.get("/:id", validationMiddleware.authenticateToken, async (req, res) => {
     try {
-        console.log(req.params.id);
         const post = await Post.findById(req.params.id);
         return res.status(200).send({
             post
@@ -91,6 +91,7 @@ router.get("/:id", validationMiddleware.authenticateToken, async (req, res) => {
     }
 })
 
+//get all user post
 router.get("/timeligne/all", validationMiddleware.authenticateToken, async (req, res) => {
     try {
         const curentuser = await User.findById(req.id);

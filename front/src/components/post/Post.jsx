@@ -5,10 +5,9 @@ import { Users } from '../../dummydata'
 
 const Post = (props) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const { desc, photo, date, like, comment, userId } = props.post
+    const { desc, img, date, likes, comment, userId, user } = props.post
     const [liked, setLiked] = React.useState(false);
-    const [likeNumber, setLikeNumber] = React.useState(like);
-    const user = Users.filter((user) => user.id === userId);
+    const [likeNumber, setLikeNumber] = React.useState(likes);
 
     const likePost = () => {
         setLikeNumber(liked ? likeNumber - 1 : likeNumber + 1);
@@ -20,8 +19,8 @@ const Post = (props) => {
             <div className="postWapper">
                 <div className="postTop">
                     <div className="postTopleft">
-                        <img className="postProfileImg" alt="" src={user[0].profilePicture} ></img>
-                        <span className="postUserName"> {user[0].username} </span>
+                        <img className="postProfileImg" alt="" src={user.userphoto} ></img>
+                        <span className="postUserName"> {`${user.firstname} ${user.lastname}`} </span>
                         <span className="postDate"> {date} </span>
                     </div>
                     <div className="postTopRight">
@@ -30,7 +29,7 @@ const Post = (props) => {
                 </div>
                 <div className="postCenter">
                     {desc !== undefined && (<span className="postText">{desc}</span>)}
-                    <img className="postImg" src={`${PF}/${photo}`} alt="" />
+                    <img className="postImg" src={img} alt="" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
@@ -39,7 +38,7 @@ const Post = (props) => {
                         <span className="likeCounter">{likeNumber}</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText">{comment} comments</span>
+                        <span className="postCommentText">9 comments</span>
                     </div>
                 </div>
             </div>
