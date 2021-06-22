@@ -3,18 +3,16 @@ import './feed.css'
 import Share from '../../components/share/Share'
 import Post from "../../components/post/Post"
 /* import { Posts } from '../../dummydata' */
-import { connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-
-
-const Feed = ({posts}) => {
+const Feed = ({ posts }) => {
     return (
         <div className="feed" >
             <div className="feedWrapper">
                 <Share />
                 {
                     posts.map(post => (
-                        <Post key={post.id} post={post} />
+                        <Post key={post._id} post={post} />
                     ))
                 }
             </div>

@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
         }
         const id = user._id;
         const role = user.isAdmin
-        const token = jwt.sign({ id: id, role: role }, process.env.JWT_TOKEN_SECRET, { expiresIn: '20m' });
+        const token = jwt.sign({ id: id, role: role }, process.env.JWT_TOKEN_SECRET, { expiresIn: '90d' });
         const refreshToken = jwt.sign({ id: id, role: role }, process.env.JWT_REFRESH_SECRET);
         //refreshToken token in db
         return res.status(200).send({

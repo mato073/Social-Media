@@ -4,8 +4,6 @@ export default () => {
 
     const storeData = Store.getState();
     let headers = {};
-
-    console.log(storeData.Token_reducer.token.token);
     if (storeData.Token_reducer.token.Token) {
         headers.Authorization = `Bearer ${storeData.Token_reducer.token.token}`;
     }
@@ -18,7 +16,6 @@ export default () => {
             if (token) {
                 config.headers['Authorization'] = 'Bearer ' + token;
             }
-            console.log(config.headers);
             return config;
         },
         error => {

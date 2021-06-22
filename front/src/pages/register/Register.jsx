@@ -20,7 +20,6 @@ const Register = (props) => {
         if (!email.includes("@"))
             return
         const result = await registerUser(firstname, lastname, email, password);
-        console.log(result);
         if (result.status === 200)
             history.push('/')
     }

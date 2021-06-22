@@ -4,14 +4,14 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Righbar'
 import './home.css'
-import { get_posts } from '../../redux/Actions/Actions'
+import { get_posts, get_user } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 
 const Home = () => {
     const disptach = useDispatch();
     useEffect(() => {
-        console.log("useEfecte");
         disptach(get_posts());
+        disptach(get_user());
     }, []);
 
     return (

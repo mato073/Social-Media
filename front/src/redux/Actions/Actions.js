@@ -70,15 +70,28 @@ export function get_token(email, password) {
 
 export function get_posts() {
     const url = `${REACT_APP_BASE_URL}/post/timeligne/all`
-    console.log('ici');
     return async (dispatch) => {
         try {
             const result = await axiosInstance().get(url);
-            console.log(result.data);
+
             return dispatch(send_posts(result.data));
         } catch (err) {
-            console.log(err);
+
             return dispatch(send_token_err(err));
+        }
+    }
+}
+
+export function get_user() {
+    const url = `${REACT_APP_BASE_URL}/users`
+    return async (dispatch) => {
+        try {
+            const result = await axiosInstance().get(url);
+
+            return dispatch(send_user(result.data));
+        } catch (err) {
+
+            return dispatch(send_user_err(err));
         }
     }
 }

@@ -2,45 +2,53 @@ import React from 'react'
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux';
 
 const other = '/assets/person/1.jpeg'
-const Topbar = () => {
-    return (
-        <div className="topbarContainer">
-            <div className="topbarLeft">
-                <Link to="/home" style={{ textDecoration: 'none' }}>
-                    <span className="logo">The best</span>
-                </Link>
-            </div>
-            <div className="topbarCenter">
-                <div className="searchbar">
-                    <Search className="searchIcon" />
-                    <input placeholder="Search friend, post or video" className="searchInput" />
+const Topbar = (props) => {
+    if (props.profilePicture === undefined) {
+        return (<p>Loagin...</p>)
+    } else {
+        return (
+            <div className="topbarContainer">
+                <div className="topbarLeft">
+                    <Link to="/home" style={{ textDecoration: 'none' }}>
+                        <span className="logo">The best</span>
+                    </Link>
                 </div>
-            </div>
-            <div className="topbarRight">
-                <div className="topbarlinks">
-                    <span className="topbarLink">Homepage</span>
-                    <span className="topbarLink">Timeline</span>
-                </div>
-                <div className="topbarIcons">
-                    <div className="topbarIconItem">
-                        <Person />
-                        <span className="topbarIconBadge">1</span>
-                    </div>
-                    <div className="topbarIconItem">
-                        <Chat />
-                        <span className="topbarIconBadge">1</span>
-                    </div>
-                    <div className="topbarIconItem">
-                        <Notifications />
-                        <span className="topbarIconBadge">1</span>
+                <div className="topbarCenter">
+                    <div className="searchbar">
+                        <Search className="searchIcon" />
+                        <input placeholder="Search friend, post or video" className="searchInput" />
                     </div>
                 </div>
-                <img /* src={imglink} */ src={other} alt="" className="topbarImg" />
+                <div className="topbarRight">
+                    <div className="topbarlinks">
+                        <span className="topbarLink">Homepage</span>
+                        <span className="topbarLink">Timeline</span>
+                    </div>
+                    <div className="topbarIcons">
+                        <div className="topbarIconItem">
+                            <Person />
+                            <span className="topbarIconBadge">1</span>
+                        </div>
+                        <div className="topbarIconItem">
+                            <Chat />
+                            <span className="topbarIconBadge">1</span>
+                        </div>
+                        <div className="topbarIconItem">
+                            <Notifications />
+                            <span className="topbarIconBadge">1</span>
+                        </div>
+                    </div>
+                    <img /* src={imglink} */ src={props.profilePicture} alt="" className="topbarImg" />
+                </div >
             </div >
-        </div >
-    )
+        )
+    }
 }
+const mapStateToProps = (state) => ({
+    profilePicture: state.User_reducer.user.user.profilePicture,
 
-export default Topbar
+});
+export default connect(mapStateToProps)(Topbar);
