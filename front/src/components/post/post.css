@@ -82,6 +82,12 @@
     border-bottom: 1px dashed #DCDDDE;
 }
 
+.postText {
+    color: #DCDBCF;
+    font-size:  15px;
+    margin-left: 20px;
+}
+
 .postBottomRight{
 
 }

@@ -3,7 +3,7 @@ import './rightbar.css'
 import { Users } from '../../dummydata'
 import Online from '../Online/Online'
 
-const Righbar = ({ profile }) => {
+const Righbar = ({ profile, followers }) => {
 
     const HomeRightBar = () => {
         return (

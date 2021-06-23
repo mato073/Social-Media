@@ -3,10 +3,16 @@ import "./topbar.css"
 import { Search, Person, Chat, Notifications } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
-const other = '/assets/person/1.jpeg'
-const Topbar = (props) => {
-    if (props.profilePicture === undefined) {
+const Topbar = ({ user }) => {
+
+    const history = useHistory();
+    const goToProfile = () => {
+        history.push(`profile/${user.firstname}/${user.lastname}`)
+    }
+
+    if (!user) {
         return (<p>Loagin...</p>)
     } else {
         return (
@@ -41,14 +47,14 @@ const Topbar = (props) => {
                             <span className="topbarIconBadge">1</span>
                         </div>
                     </div>
-                    <img /* src={imglink} */ src={props.profilePicture} alt="" className="topbarImg" />
+                    <img /* src={imglink} */ src={user.profilePicture} alt="" className="topbarImg" onClick={goToProfile} />
                 </div >
             </div >
         )
     }
 }
 const mapStateToProps = (state) => ({
-    profilePicture: state.User_reducer.user.user.profilePicture,
+    user: state.User_reducer.user.user,
 
 });
 export default connect(mapStateToProps)(Topbar);

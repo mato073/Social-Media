@@ -1,14 +1,13 @@
 import React from 'react'
 import './post.css'
 import { MoreVert } from '@material-ui/icons'
-import { Users } from '../../dummydata'
 import { format } from 'timeago.js';
 
 const Post = (props) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const { desc, img, createdAt, likes, user } = props.post
     const [liked, setLiked] = React.useState(false);
-    const [likeNumber, setLikeNumber] = React.useState(likes);
+    const [likeNumber, setLikeNumber] = React.useState(likes.length);
 
     const likePost = () => {
         setLikeNumber(liked ? likeNumber - 1 : likeNumber + 1);
@@ -25,7 +24,7 @@ const Post = (props) => {
                         <span className="postDate"> {format(createdAt)} </span>
                     </div>
                     <div className="postTopRight">
-                        <MoreVert />
+                        <MoreVert style={{ color: '#DCDBCF', cursor: 'pointer' }} />
                     </div>
                 </div>
             </div>
