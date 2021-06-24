@@ -91,7 +91,7 @@ router.get("/:id", validationMiddleware.authenticateToken, async (req, res) => {
     }
 })
 
-//get all user post
+//get all post
 router.get("/timeligne/all", validationMiddleware.authenticateToken, async (req, res) => {
     try {
         const curentuser = await User.findById(req.id);
@@ -102,6 +102,17 @@ router.get("/timeligne/all", validationMiddleware.authenticateToken, async (req,
             })
         );
         res.json(userPost.concat(...friendPost));
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+//get all user post
+router.get("/timeligne/user", validationMiddleware.authenticateToken, async (req, res) => {
+    try {
+        const curentuser = await User.findById(req.id);
+        const userPost = await Post.find({ userId: curentuser._id });
+        res.json(userPost);
     } catch (err) {
         res.status(500).json(err);
     }

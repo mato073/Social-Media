@@ -10,6 +10,14 @@ export function send_posts(posts) {
     }
 }
 
+export function send_user_posts(posts) {
+    return {
+        type: 'USER_POSTS',
+        user_posts: posts
+    }
+}
+
+
 export function send_posts_err(err) {
     return {
         type: 'POSTS_ERR',
@@ -73,8 +81,26 @@ export function get_posts() {
     return async (dispatch) => {
         try {
             const result = await axiosInstance().get(url);
+            const post = result.data.sort((p1, p2) => {
+                return new Date(p2.createdAt) - new Date(p1.createdAt);
+            })
+            return dispatch(send_posts(post));
+        } catch (err) {
 
-            return dispatch(send_posts(result.data));
+            return dispatch(send_token_err(err));
+        }
+    }
+}
+
+export function get_user_posts() {
+    const url = `${REACT_APP_BASE_URL}/post/timeligne/user`
+    return async (dispatch) => {
+        try {
+            const result = await axiosInstance().get(url);
+            const post = result.data.sort((p1, p2) => {
+                return new Date(p2.createdAt) - new Date(p1.createdAt);
+            })
+            return dispatch(send_user_posts(post));
         } catch (err) {
 
             return dispatch(send_token_err(err));
