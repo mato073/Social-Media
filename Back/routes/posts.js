@@ -118,4 +118,31 @@ router.get("/timeligne/user", validationMiddleware.authenticateToken, async (req
     }
 })
 
+//get public profile
+router.get("/publicTimeligne/:id", async (req, res) => {
+    if (!req.params.id)
+        res.status(500).json(err);
+    try {
+        const curentuser = await User.findById(req.params.id);
+        const userPost = await Post.find({ userId: req.params.id });
+
+        const publicUser = {
+            post: userPost,
+            user: {
+                id: curentuser._id,
+                firstname: curentuser.firstname,
+                lastname: curentuser.lastname,
+                followers: curentuser.followers,
+                profilePicture: curentuser.profilePicture,
+                coverPicture: curentuser.coverPicture
+            }
+        }
+        res.json(publicUser);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+
+
 module.exports = router;

@@ -3,6 +3,7 @@ import Home from './pages/home/Home'
 import Profile from './pages/profile/Profile'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
+import PublicProfile from './pages/publicProfile/PublicProfile'
 
 import {
   BrowserRouter as Router,
@@ -24,7 +25,10 @@ function App() {
           <Home />
         </Route>
         <Route path="/profile/:firstname/:lastname">
-          <Profile/>
+          <Profile />
+        </Route>
+        <Route path="/publicProfile/:id">
+          <PublicProfile />
         </Route>
       </Switch>
     </Router>
