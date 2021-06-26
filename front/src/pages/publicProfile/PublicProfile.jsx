@@ -11,15 +11,16 @@ const { REACT_APP_BASE_URL } = process.env;
 
 const PublicProfile = () => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
+    const [posts, setPosts] = useState(null);
     const { id } = useParams();
 
 
     useEffect(() => {
         const fetchUser = async () => {
             const data = await axios.get(`${REACT_APP_BASE_URL}/post/publicTimeligne/${id}`);
-            console.log();
-            setUser(data.data);
+            setUser(data.data.user);
+            setPosts(data.data.post);
         }
         fetchUser();
     }, [])
@@ -37,24 +38,22 @@ const PublicProfile = () => {
                         <div className="profileCover">
                             <img
                                 className="profileCoverImg"
-                                src={user.user.coverPicture}
-                                /* src={`${PF}/post/rileyreidpose.jpg`} */
+                                src={user?.coverPicture}
                                 alt=""
                             />
                             <img
                                 className="profileUserImg"
-                                src={user.user.profilePicture}
-                                /* src={`${PF}/person/RileyReid.jpg`} */
+                                src={user?.profilePicture}
                                 alt=""
                             />
                         </div>
                         <div className="profileInfo">
-                            <h4 className="profileInfoName">{user.user.firstname} {user.user.lastname}</h4>
+                            <h4 className="profileInfoName">{user.firstname} {user.lastname}</h4>
                             <span className="profileInfoDesc">I hope you love my videos !</span>
                         </div>
                     </div>
                     <div className="profileRightBottom">
-                         <Feed publicposts={user.post} />
+                        <Feed posts={posts}  notuser/>
                         <Rightbar profile />
                     </div>
                 </div>

@@ -4,26 +4,32 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Righbar'
 import './home.css'
-import { get_user } from '../../redux/Actions/Actions'
+import { get_user, get_posts } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
-
-const Home = () => {
+import { connect } from 'react-redux';
+const Home = (props) => {
     const disptach = useDispatch();
     useEffect(() => {
         disptach(get_user());
+        disptach(get_posts());
     }, []);
+    if (!props.posts) {
+        return <div>Loading...</div>
+    } else {
+        return (
+            <>
+                <Topbar />
+                <div className="homeContainer">
+                    <Sidebar />
+                    <Feed posts={props.posts} />
+                    <Rightbar home />
+                </div>
 
-    return (
-        <>
-            <Topbar />
-            <div className="homeContainer">
-                <Sidebar />
-                <Feed />
-                <Rightbar home />
-            </div>
-
-        </>
-    )
+            </>
+        )
+    }
 }
-
-export default Home;
+const mapStateToProps = (state) => ({
+    posts: state.Posts_reducer.posts,
+});
+export default connect(mapStateToProps)(Home);
