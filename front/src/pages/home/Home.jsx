@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
 const Home = (props) => {
     const disptach = useDispatch();
-    console.log('posts =', props.posts);
     useEffect(() => {
         disptach(get_user());
         disptach(get_posts());
@@ -23,7 +22,7 @@ const Home = (props) => {
                 <div className="homeContainer">
                     <Sidebar />
                     <Feed posts={props.posts} />
-                    <Rightbar home />
+                    <Rightbar home  online={props.user.followings} />
                 </div>
 
             </>
@@ -32,5 +31,6 @@ const Home = (props) => {
 }
 const mapStateToProps = (state) => ({
     posts: state.Posts_reducer.posts,
+    user: state.User_reducer.user.user
 });
 export default connect(mapStateToProps)(Home);

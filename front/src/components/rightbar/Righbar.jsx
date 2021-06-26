@@ -1,11 +1,16 @@
 import React from 'react'
 import './rightbar.css'
-import { Users } from '../../dummydata'
 import Online from '../Online/Online'
 import { useHistory } from "react-router-dom";
 
-const Righbar = ({ profile, followers }) => {
+const Righbar = ({ profile, followers, online }) => {
+    console.log('ici', online);
     const history = useHistory();
+
+    const goPublicProfile = (userId) => {
+        history.push(`/publicProfile/${userId}`)
+    }
+
     const HomeRightBar = () => {
         return (
             <>
@@ -17,8 +22,8 @@ const Righbar = ({ profile, followers }) => {
                 <h4 className="rightbarTitlte">Online friends</h4>
                 <ul className="rightbarFriendsList">
                     {
-                        Users.map(user => (
-                            <Online key={user.id} user={user} />
+                        online.map(user => (
+                            <Online key={user.userId} user={user} />
                         ))
                     }
                 </ul>
@@ -28,9 +33,6 @@ const Righbar = ({ profile, followers }) => {
 
     const ProfileRightBar = () => {
 
-        const goPublicProfile = (userId) => {
-            history.push(`/publicProfile/${userId}`)
-        }
         return (
             <>
                 <h4 className="rightbarTitle" >User information</h4>

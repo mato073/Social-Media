@@ -2,16 +2,22 @@ import React from 'react'
 import './post.css'
 import { MoreVert } from '@material-ui/icons'
 import { format } from 'timeago.js';
+import { useHistory } from "react-router-dom";
 
 const Post = (props) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const { desc, img, createdAt, likes, user } = props.post
+    const { desc, img, createdAt, likes, user, userId } = props.post
     const [liked, setLiked] = React.useState(false);
     const [likeNumber, setLikeNumber] = React.useState(likes.length);
+    const history = useHistory();
 
     const likePost = () => {
         setLikeNumber(liked ? likeNumber - 1 : likeNumber + 1);
         setLiked(!liked);
+    }
+
+    const goPublicProfile = (userId) => {
+        history.push(`/publicProfile/${userId}`)
     }
 
     return (
@@ -19,7 +25,7 @@ const Post = (props) => {
             <div className="postWapper">
                 <div className="postTop">
                     <div className="postTopleft">
-                        <img className="postProfileImg" alt="" src={user.userphoto} ></img>
+                        <img className="postProfileImg" alt="" src={user.userphoto} onClick={() => goPublicProfile(userId) } ></img>
                         <span className="postUserName"> {`${user.firstname} ${user.lastname}`} </span>
                         <span className="postDate"> {format(createdAt)} </span>
                     </div>

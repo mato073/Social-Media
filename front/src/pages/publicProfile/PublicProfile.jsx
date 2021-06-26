@@ -54,7 +54,7 @@ const PublicProfile = () => {
                     </div>
                     <div className="profileRightBottom">
                         <Feed posts={posts}  notuser/>
-                        <Rightbar profile />
+                        <Rightbar profile followers={user.followers} />
                     </div>
                 </div>
             </div>

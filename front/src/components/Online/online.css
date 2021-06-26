@@ -14,10 +14,12 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .rightbarUsername {
     font-weight: 500;
+    color: #DCDDDE;
 }
 
 .rightbarOnline {

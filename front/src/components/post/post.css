@@ -27,6 +27,7 @@
     height: 32px;
     border-radius: 50px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .postUserName {

@@ -97,8 +97,8 @@ router.get("/timeligne/all", validationMiddleware.authenticateToken, async (req,
         const curentuser = await User.findById(req.id);
         const userPost = await Post.find({ userId: curentuser._id });
         const friendPost = await Promise.all(
-            curentuser.followings.map((id) => {
-                return Post.find({ userId: id });
+            curentuser.followings.map((user) => {
+                return Post.find({ userId: user.userId});
             })
         );
         res.json(userPost.concat(...friendPost));

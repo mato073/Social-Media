@@ -69,3 +69,7 @@
     margin: 0;
     list-style: none;
 }
+
+.sidebarListItemText {
+    color: #DCDDDE;
+}
