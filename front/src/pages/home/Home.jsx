@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
 const Home = (props) => {
     const disptach = useDispatch();
+    console.log('posts =', props.posts);
     useEffect(() => {
         disptach(get_user());
         disptach(get_posts());

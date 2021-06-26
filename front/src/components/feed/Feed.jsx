@@ -4,7 +4,6 @@ import Share from '../../components/share/Share'
 import Post from "../../components/post/Post"
 
 const Feed = ({ posts, notuser }) => {
-    console.log('posts =', posts);
     if (!posts) {
         return (
             <div>Loading...</div>

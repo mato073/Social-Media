@@ -1,9 +1,9 @@
 import React from 'react'
 import './sidebar.css'
-import { Users } from '../../dummydata'
 import Friend from '../Friend/Friend'
+import { connect } from 'react-redux';
 
-const Sidebar = () => {
+const Sidebar = ({ followings }) => {
     return (
         <div className="sidebar" >
             <div className="sidebarWrapper">
@@ -45,8 +45,8 @@ const Sidebar = () => {
                 <hr className="sidebarHr" />
                 <ul className="sidebarFriendList">
                     {
-                        Users.map(user => (
-                            <Friend key={user.id} user={user}/>
+                        followings?.map(user => (
+                            <Friend key={user.id} user={user} />
                         ))
                     }
                 </ul>
@@ -55,4 +55,9 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+const mapStateToProps = (state) => ({
+    followings: state.User_reducer.user.user.followings
+
+});
+export default connect(mapStateToProps)(Sidebar);
+
