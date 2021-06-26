@@ -11,6 +11,10 @@ const Register = (props) => {
     const [password2, setPassword2] = useState(null);
     const history = useHistory();
 
+    const goToLogin = () => {
+        history.push('/')
+    }
+
     const registerNewUser = async () => {
         const { history } = props;
         if (password !== password2 || password.length < 6)
@@ -21,11 +25,7 @@ const Register = (props) => {
             return
         const result = await registerUser(firstname, lastname, email, password);
         if (result.status === 200)
-            history.push('/')
-    }
-
-    const goToLogin = () => {
-        history.push('/')
+            goToLogin();
     }
 
     return (

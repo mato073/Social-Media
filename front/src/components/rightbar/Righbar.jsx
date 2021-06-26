@@ -2,9 +2,10 @@ import React from 'react'
 import './rightbar.css'
 import { Users } from '../../dummydata'
 import Online from '../Online/Online'
+import { useHistory } from "react-router-dom";
 
 const Righbar = ({ profile, followers }) => {
-
+    const history = useHistory();
     const HomeRightBar = () => {
         return (
             <>
@@ -26,6 +27,10 @@ const Righbar = ({ profile, followers }) => {
     }
 
     const ProfileRightBar = () => {
+
+        const goPublicProfile = (userId) => {
+            history.push(`/publicProfile/${userId}`)
+        }
         return (
             <>
                 <h4 className="rightbarTitle" >User information</h4>
@@ -47,32 +52,18 @@ const Righbar = ({ profile, followers }) => {
                         <span className="rightbarInfoValue" ><a href="https://reidmylips.com">https://reidmylips.com</a></span>
                     </div>
                 </div>
-                <h4 className="rightbarTitle" >Friends</h4>
+                <h4 className="rightbarTitle" >Followers</h4>
                 <div className="rightbarFollowings">
-                    <div className="rightbarFollowing">
-                        <img className="rightbarFollowingImg" src="/assets/person/1.jpeg" alt="" />
-                        <span className="rightbarFollowingName">Brase Bob</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img className="rightbarFollowingImg" src="/assets/person/7.jpeg" alt="" />
-                        <span className="rightbarFollowingName">Brase Bob</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img className="rightbarFollowingImg" src="/assets/person/3.jpeg" alt="" />
-                        <span className="rightbarFollowingName">Brase Bob</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img className="rightbarFollowingImg" src="/assets/person/4.jpeg" alt="" />
-                        <span className="rightbarFollowingName">Brase Bob</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img className="rightbarFollowingImg" src="/assets/person/5.jpeg" alt="" />
-                        <span className="rightbarFollowingName">Brase Bob</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img className="rightbarFollowingImg" src="/assets/person/6.jpeg" alt="" />
-                        <span className="rightbarFollowingName">Brase Bob</span>
-                    </div>
+                    {
+                        followers?.map(follower => {
+                            return (
+                                <div className="rightbarFollowing">
+                                    <img className="rightbarFollowingImg" src={follower.profilePicture} alt="" onClick={() => goPublicProfile(follower.userId)} />
+                                    <span className="rightbarFollowingName">{follower.fistname} {follower.lastname}</span>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </>
         )

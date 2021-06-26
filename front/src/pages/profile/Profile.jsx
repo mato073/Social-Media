@@ -44,7 +44,7 @@ const Profile = (props) => {
                     </div >
                     <div className="profileRightBottom">
                         <Feed posts={props.user_posts} />
-                        <Rightbar profile />
+                        <Rightbar profile followers={user.followers} />
                     </div>
                 </div >
             </div >

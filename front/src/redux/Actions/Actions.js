@@ -69,6 +69,7 @@ export function get_token(email, password) {
     return async (dispatch) => {
         try {
             const result = await axios.post(url, data);
+            console.log('token =', result.data);
             return dispatch(send_token(result.data));
         } catch (err) {
             return dispatch(send_token_err(err));

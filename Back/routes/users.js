@@ -97,9 +97,22 @@ router.put("/follow/:id", validationMiddleware.authenticateToken,
                         message: 'User not found'
                     })
                 }
-                if (!user.followers.includes(req.id)) {
-                    await user.updateOne({ $push: { followers: req.id } })
-                    await curentUser.updateOne({ $push: { followings: req.params.id } })
+                if (!user.followers.includes({ userId: req.id })) {
+
+                    const newFollower = {
+                        userId: curentUser._id,
+                        profilePicture: curentUser.profilePicture,
+                        firstname: curentUser.firstname,
+                        lastname: curentUser.lastname
+                    }
+                    const newFollowing = {
+                        userId: user._id,
+                        profilePicture: user.profilePicture,
+                        firstname: user.firstname,
+                        lastname: user.lastname
+                    }
+                     await user.updateOne({ $push: { followers: newFollower } })
+                    await curentUser.updateOne({ $push: { followings: newFollowing } })
                     return res.status(200).send({
                         message: 'User followed'
                     })
@@ -134,9 +147,9 @@ router.put("/unfollow/:id", validationMiddleware.authenticateToken,
                         message: 'User not found'
                     })
                 }
-                if (user.followers.includes(req.id)) {
-                    await user.updateOne({ $pull: { followers: req.id } })
-                    await curentUser.updateOne({ $pull: { followings: req.params.id } })
+                if (user.followers.includes({ userId: req.id })) {
+                    await user.updateOne({ $pull: { followers: {userId: req.id} } })
+                    await curentUser.updateOne({ $pull: { followings: {userId: req.params.id} } })
                     return res.status(200).send({
                         message: 'User unfollowed'
                     })

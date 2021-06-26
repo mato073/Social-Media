@@ -21,7 +21,7 @@ const Login = () => {
         history.push('/register')
     }
     return (
-        <div className="loginContainer">
+        <div className="loginContainer">s
             <div className="loginWrapper">
                 <div className="loginLeft">
                     <h3 className="loginlogo">The best</h3>
