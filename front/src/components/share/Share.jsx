@@ -3,6 +3,7 @@ import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons'
 import { connect } from 'react-redux';
 import Modal from '../Modal/Modal'
 import { useState } from 'react';
+import NewPostModa from '../NewPostModal/NewPostModal'
 
 const Share = ({ user }) => {
 
@@ -60,7 +61,7 @@ const Share = ({ user }) => {
         return (
             <div className="shareContainer">
                 <Modal open={open} onClose={() => setOpen(false)}>
-                    <MyModal />
+                    <NewPostModa user={user} setOpen={(value) => setOpen(value)} />
                 </Modal>
                 <div className="shareWrapper">
                     <div className="shareTop">

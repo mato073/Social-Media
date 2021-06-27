@@ -1,0 +1,116 @@
+.modalContainer {
+    height: 350px;
+    width: 750px;
+    background-color: #242526;
+    border-radius: 13px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bodyShareModal {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalshareInput {
+    margin-top: 15px;
+    border: none;
+    width: 80%;
+    background-color: #242526;
+    color: #DCDDDE;
+    font-size: 1.5em;
+}
+
+.headerShareModal {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* .headerShareModal:first-child {
+    align-self: center;
+} */
+
+.headerShareModalSpan {
+    font-size: 20px;
+    font-weight: 700;
+    color: #DCDDDE;
+}
+
+.customHrHeaderModal {
+    border: 1px solid #4E4F50;
+}
+
+.modalNameImg { 
+    display: flex;
+    align-items: center;
+}
+
+.modalshareInput::placeholder {
+    color: #8A8D91;
+}
+
+.modalshareInput:focus {
+    outline: none;
+}
+
+.modalNameImgSpan {
+    font-size: 18px;
+    font-weight: 500;
+    color: #DCDDDE;
+}
+
+.bottomShareModal {
+} 
+
+.closeModalButton {
+    border: none;
+    background-color: #4E4F4F;
+    height: 35px;
+    width: 35px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.closeModalIcon {
+    color: #B1B3B9;
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.modalChooseParm {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.modalChooseParmImag {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.modalChooseParmImagSpan {
+    margin-top: 15px;
+    width: 80%;
+    background-color: #242526;
+    color: #DCDDDE;
+    font-size: 1em;
+    border: none
+}
+
+.modalChooseParmImagBtn {
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: green;
+    font-weight: 500;
+    margin-right: 20px;
+    color: #DCDDDE;
+    margin-left: 15px;
+}

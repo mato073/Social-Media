@@ -10,7 +10,7 @@ const Modal = ({ open, children, onClose }) => {
     }
 
     const checkDiv = (value) => {
-        console.log(value);
+       
         /* if (value === 'main')
             onClose(); */
     }
