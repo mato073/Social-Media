@@ -3,6 +3,7 @@ import './login.css'
 import { useHistory } from "react-router-dom";
 import { get_token } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
+import Modal from '../../components/Modal/Modal'
 
 const Login = () => {
     const history = useHistory();
@@ -21,7 +22,7 @@ const Login = () => {
         history.push('/register')
     }
     return (
-        <div className="loginContainer">s
+        <div className="loginContainer">
             <div className="loginWrapper">
                 <div className="loginLeft">
                     <h3 className="loginlogo">The best</h3>
