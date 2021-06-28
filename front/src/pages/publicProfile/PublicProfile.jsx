@@ -6,14 +6,18 @@ import Rightbar from '../../components/rightbar/Righbar'
 import './publicProfile.css'
 import { useParams } from "react-router-dom";
 import axios from 'axios'
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import { Chat } from '@material-ui/icons'
+import { connect } from 'react-redux';
 
 const { REACT_APP_BASE_URL } = process.env;
 
-const PublicProfile = () => {
+const PublicProfile = ({ followings }) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState(null);
     const { id } = useParams();
+    const [followed, serFollowed] = useState(false);
 
 
     useEffect(() => {
@@ -25,6 +29,9 @@ const PublicProfile = () => {
             })
             setPosts(post);
         }
+        const data = followings.filter((user) => user.userId === id);
+        if (data.length !== 0)
+            serFollowed(true);
         fetchUser();
     }, [])
 
@@ -50,13 +57,30 @@ const PublicProfile = () => {
                                 alt=""
                             />
                         </div>
+                        <div className="FollowUserButtonList">
+                            {followed ?
+                                <button className="followUserButtonFollow">
+                                    <GroupAddIcon />
+                                    <span className="followUserButtonFollowSpan" >Unfollow</span>
+                                </button>
+                                :
+                                <button className="followUserButtonFollow">
+                                    <GroupAddIcon />
+                                    <span className="followUserButtonFollowSpan" >Follow</span>
+                                </button>
+                            }
+                            <button className="followUserButtonChat">
+                                < Chat />
+                                <span className="followUserButtonChatSpan" >Message</span>
+                            </button>
+                        </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{user.firstname} {user.lastname}</h4>
                             <span className="profileInfoDesc">I hope you love my videos !</span>
                         </div>
                     </div>
                     <div className="profileRightBottom">
-                        <Feed posts={posts}  notuser/>
+                        <Feed posts={posts} notuser />
                         <Rightbar profile followers={user.followers} />
                     </div>
                 </div>
@@ -64,4 +88,9 @@ const PublicProfile = () => {
         </>
     )
 }
-export default PublicProfile;
+
+const mapStateToProps = (state) => ({
+    followings: state.User_reducer.user.user.followings,
+
+});
+export default connect(mapStateToProps)(PublicProfile);
