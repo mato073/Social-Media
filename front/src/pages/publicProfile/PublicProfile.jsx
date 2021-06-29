@@ -9,6 +9,7 @@ import axios from 'axios'
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import { Chat } from '@material-ui/icons'
 import { connect } from 'react-redux';
+import { followUser, unFollowUser } from '../../services/follow.service'
 
 const { REACT_APP_BASE_URL } = process.env;
 
@@ -35,6 +36,18 @@ const PublicProfile = ({ followings }) => {
         fetchUser();
     }, [])
 
+    const newFollow = async () => {
+        const status = await followUser(user.id);
+        if (status === true)
+            serFollowed(true);
+
+    }
+    const newUnFollow = async () => {
+        const status = await followUser(user.id);
+        if (status === true)
+            serFollowed(false);
+    }
+
     if (!user) {
         return <div>Loading...</div>
     }
@@ -59,12 +72,12 @@ const PublicProfile = ({ followings }) => {
                         </div>
                         <div className="FollowUserButtonList">
                             {followed ?
-                                <button className="followUserButtonFollow">
+                                <button className="followUserButtonFollow" onClick={newUnFollow}>
                                     <GroupAddIcon />
                                     <span className="followUserButtonFollowSpan" >Unfollow</span>
                                 </button>
                                 :
-                                <button className="followUserButtonFollow">
+                                <button className="followUserButtonFollow" onClick={newFollow}>
                                     <GroupAddIcon />
                                     <span className="followUserButtonFollowSpan" >Follow</span>
                                 </button>
