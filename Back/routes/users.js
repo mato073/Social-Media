@@ -97,7 +97,7 @@ router.put("/follow/:id", validationMiddleware.authenticateToken,
                         message: 'User not found'
                     })
                 }
-                if (!user.followers.includes({ userId: req.id })) {
+                if (!user.followers.filter((element) => JSON.stringify(element.userId) === JSON.stringify(req.id)).length > 0) {
 
                     const newFollower = {
                         userId: curentUser._id,
@@ -111,7 +111,7 @@ router.put("/follow/:id", validationMiddleware.authenticateToken,
                         firstname: user.firstname,
                         lastname: user.lastname
                     }
-                     await user.updateOne({ $push: { followers: newFollower } })
+                    await user.updateOne({ $push: { followers: newFollower } })
                     await curentUser.updateOne({ $push: { followings: newFollowing } })
                     return res.status(200).send({
                         message: 'User followed'
@@ -146,10 +146,9 @@ router.put("/unfollow/:id", validationMiddleware.authenticateToken,
                     return res.status(400).send({
                         message: 'User not found'
                     })
-                }
-                if (user.followers.includes({ userId: req.id })) {
-                    await user.updateOne({ $pull: { followers: {userId: req.id} } })
-                    await curentUser.updateOne({ $pull: { followings: {userId: req.params.id} } })
+                } if (user.followers.filter((element) => JSON.stringify(element.userId) === JSON.stringify(req.id)).length > 0) {
+                    await user.updateOne({ $pull: { followers: { userId: req.id } } })
+                    await curentUser.updateOne({ $pull: { followings: { userId: req.params.id } } })
                     return res.status(200).send({
                         message: 'User unfollowed'
                     })

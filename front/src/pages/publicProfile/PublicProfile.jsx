@@ -34,7 +34,7 @@ const PublicProfile = ({ followings }) => {
         if (data.length !== 0)
             serFollowed(true);
         fetchUser();
-    }, [])
+    }, [serFollowed])
 
     const newFollow = async () => {
         const status = await followUser(user.id);
@@ -43,7 +43,7 @@ const PublicProfile = ({ followings }) => {
 
     }
     const newUnFollow = async () => {
-        const status = await followUser(user.id);
+        const status = await unFollowUser(user.id);
         if (status === true)
             serFollowed(false);
     }
