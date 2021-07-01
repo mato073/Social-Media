@@ -7,6 +7,7 @@ import './home.css'
 import { get_user, get_posts } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
+
 const Home = (props) => {
     const disptach = useDispatch();
     useEffect(() => {
@@ -22,7 +23,7 @@ const Home = (props) => {
                 <div className="homeContainer">
                     <Sidebar />
                     <Feed posts={props.posts} />
-                    <Rightbar home  online={props.user.followings} />
+                    <Rightbar home online={props.user.followings} />
                 </div>
 
             </>

@@ -9,7 +9,7 @@ const Topbar = ({ user }) => {
 
     const history = useHistory();
     const goToProfile = () => {
-        history.push(`profile/${user.firstname}/${user.lastname}`)
+        history.replace(`/profile/${user.firstname}/${user.lastname}`)
     }
 
     if (!user) {

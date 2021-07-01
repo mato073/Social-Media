@@ -34,7 +34,7 @@ const PublicProfile = ({ followings }) => {
         if (data.length !== 0)
             serFollowed(true);
         fetchUser();
-    }, [serFollowed])
+    }, [serFollowed, id])
 
     const newFollow = async () => {
         const status = await followUser(user.id);
