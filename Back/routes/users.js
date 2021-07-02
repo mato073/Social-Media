@@ -147,8 +147,13 @@ router.put("/unfollow/:id", validationMiddleware.authenticateToken,
                         message: 'User not found'
                     })
                 } if (user.followers.filter((element) => JSON.stringify(element.userId) === JSON.stringify(req.id)).length > 0) {
+                    const newFollower = user.followers.filter((element) => JSON.stringify(element.userId) !== JSON.stringify(req.id));
+                    const newFollowings = curentUser.followings.filter((element) => JSON.stringify(element.userId) !== JSON.stringify(req.params.id));
+                    await user.updateOne({ followers: newFollower });
+                    await curentUser.updateOne({ followings: newFollowings });
                     await user.updateOne({ $pull: { followers: { userId: req.id } } })
                     await curentUser.updateOne({ $pull: { followings: { userId: req.params.id } } })
+
                     return res.status(200).send({
                         message: 'User unfollowed'
                     })
