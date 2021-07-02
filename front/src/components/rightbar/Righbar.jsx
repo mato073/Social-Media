@@ -22,7 +22,7 @@ const Righbar = ({ profile, followers, online }) => {
                 <h4 className="rightbarTitlte">Online friends</h4>
                 <ul className="rightbarFriendsList">
                     {
-                        online.map(user => (
+                        online?.map(user => (
                             <Online key={user.userId} user={user} />
                         ))
                     }

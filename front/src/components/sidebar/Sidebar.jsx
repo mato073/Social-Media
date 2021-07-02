@@ -55,9 +55,10 @@ const Sidebar = ({ followings }) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    followings: state.User_reducer.user.user.followings
+const mapStateToProps = (state) => {
+    if (state.User_reducer.user?.user.followings) return {followings:  state.User_reducer.user?.user.followings};
+    return {followings: []};
+};
 
-});
 export default connect(mapStateToProps)(Sidebar);
 

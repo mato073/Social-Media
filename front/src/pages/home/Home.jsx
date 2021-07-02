@@ -23,7 +23,7 @@ const Home = (props) => {
                 <div className="homeContainer">
                     <Sidebar />
                     <Feed posts={props.posts} />
-                    <Rightbar home online={props.user.followings} />
+                    <Rightbar home online={props.user?.followings} />
                 </div>
 
             </>
