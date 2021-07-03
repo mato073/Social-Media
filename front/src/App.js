@@ -38,13 +38,25 @@ function App({ user }) {
           <Home />
         </Route>
         <Route path="/profile/:firstname/:lastname">
-          <Profile />
+          {
+            user ?
+              <Profile />
+              :
+              < Redirect to="/" />
+
+          }
         </Route>
         <Route path="/publicProfile/:id">
           <PublicProfile />
         </Route>
         <Route path="/messenger">
-          <Messenger />
+          {
+            user ?
+              <Messenger />
+              :
+              < Redirect to="/" />
+
+          }
         </Route>
       </Switch>
     </Router>

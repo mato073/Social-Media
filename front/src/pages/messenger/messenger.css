@@ -1,0 +1,28 @@
+.messengerContainer {
+    height: calc(100vh - 70px);
+    display: flex;
+}
+
+.chatMenu {
+    flex: 3.5;
+}
+
+.chatMenuWraper {
+
+}
+
+.chatBox {
+    flex: 4.5;
+}
+
+.chatBoxWraper {
+
+}
+
+.chatOnline {
+    flex: 3;
+}
+
+.chatOnlineWraper {
+
+}
