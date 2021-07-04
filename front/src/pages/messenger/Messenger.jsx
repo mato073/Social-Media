@@ -1,7 +1,10 @@
 import React from 'react'
 import Topbar from '../../components/topbar/Topbar'
 import './messenger.css'
+
+//Import Components
 import Conversation from '../../components/conversiations/Conversation'
+import Messages from '../../components/messages/Messages'
 
 const Messenger = () => {
     return (
@@ -11,17 +14,25 @@ const Messenger = () => {
                 <div className="chatMenu">
                     <div className="chatMenuWraper">
                         <input className="chatMenuInput" placeholder="Chat with your followers" />
-                        <Conversation/>
-                        <Conversation/>
-                        <Conversation/>
-                        <Conversation/>
-                        <Conversation/>
-                        <Conversation/>
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
+                        <Conversation />
                     </div>
                 </div>
                 <div className="chatBox">
                     <div className="chatBoxWraper">
-                        BOx
+                        <div className="chatBoxTop">
+                            <Messages own/>
+                            <Messages/>
+                            <Messages own/>
+                            <Messages/>
+                        </div>
+                        <div className="chatBoxBottom">
+
+                        </div>
                     </div>
                 </div>
                 <div className="chatOnline">
