@@ -7,22 +7,27 @@
     flex: 3.5;
 }
 
-.chatMenuWraper {
+.chatMenuInput {
+    width: 90%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid grey;
+}
 
+.chatMenuInput:focus {
+    outline: none;
 }
 
 .chatBox {
     flex: 4.5;
 }
 
-.chatBoxWraper {
-
-}
-
 .chatOnline {
     flex: 3;
 }
 
-.chatOnlineWraper {
-
+.chatOnlineWraper, .chatBoxWraper, .chatMenuWraper {
+    padding:  10px;
+    height: 100%;
 }
+

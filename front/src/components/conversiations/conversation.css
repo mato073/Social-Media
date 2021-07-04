@@ -1,0 +1,27 @@
+.conversationContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    width: 90%;
+    margin-top: 10px;
+}
+
+.conversationContainer:hover {
+    background-color: #303031;
+    border-radius: 6px;
+}
+
+.conversationImg {
+    height: 40px;
+    width:  40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.conversationText {
+    font-weight: 500;
+    font-size: 17px;
+    color: #BFC0C4;
+}
