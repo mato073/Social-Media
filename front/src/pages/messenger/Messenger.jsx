@@ -25,13 +25,14 @@ const Messenger = () => {
                 <div className="chatBox">
                     <div className="chatBoxWraper">
                         <div className="chatBoxTop">
-                            <Messages own/>
-                            <Messages/>
-                            <Messages own/>
-                            <Messages/>
+                            <Messages own />
+                            <Messages />
+                            <Messages own />
+                            <Messages />
                         </div>
                         <div className="chatBoxBottom">
-
+                            <textarea className="chatMessageBox" placeholder="Send a message"></textarea>
+                            <button className="chatMessageButton">send</button>
                         </div>
                     </div>
                 </div>
