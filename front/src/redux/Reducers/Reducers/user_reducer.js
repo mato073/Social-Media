@@ -10,6 +10,11 @@ function User_reducer(state = initialState, action) {
                 ...state,
                 user: action.user
             };
+        case "USER":
+            return {
+                ...state,
+                user: action.user
+            };
         case "USER_ERR":
             return {
                 ...state,
