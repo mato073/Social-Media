@@ -8,13 +8,14 @@ import { get_user, get_posts } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
 
-const Home = (props) => {
+const Home = ({posts, user}) => {
     const disptach = useDispatch();
     useEffect(() => {
         disptach(get_user());
         disptach(get_posts());
     }, []);
-    if (!props.posts) {
+    
+    if (posts.data == null || user == null ) {
         return <div>Loading...</div>
     } else {
         return (
@@ -22,8 +23,8 @@ const Home = (props) => {
                 <Topbar />
                 <div className="homeContainer">
                     <Sidebar />
-                    <Feed posts={props.posts} />
-                    <Rightbar home online={props.user?.followings} />
+                    <Feed posts={posts} />
+                    <Rightbar home online={user?.followings} />
                 </div>
 
             </>

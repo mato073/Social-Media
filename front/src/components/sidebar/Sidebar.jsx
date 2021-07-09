@@ -45,8 +45,8 @@ const Sidebar = ({ followings }) => {
                 <hr className="sidebarHr" />
                 <ul className="sidebarFriendList">
                     {
-                        followings?.map(user => (
-                            <Friend key={user.id} user={user} />
+                        followings?.map((user, key) => (
+                            <Friend key={key} user={user} />
                         ))
                     }
                 </ul>

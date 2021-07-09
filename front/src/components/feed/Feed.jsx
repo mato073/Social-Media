@@ -4,7 +4,8 @@ import Share from '../../components/share/Share'
 import Post from "../../components/post/Post"
 
 const Feed = ({ posts, notuser }) => {
-    if (!posts) {
+    console.log('posts', posts);
+    if (posts?.data == null || posts == null) {
         return (
             <div>Loading...</div>
         )
@@ -14,8 +15,8 @@ const Feed = ({ posts, notuser }) => {
                 <div className="feedWrapper">
                     {!notuser && (<Share />)}
                     {
-                        posts.map(post => {
-                            return <Post key={post._id} post={post} />
+                        posts?.data.map((post, key) => {
+                            return <Post key={key} post={post} />
                         })
                     }
                 </div>

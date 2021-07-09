@@ -22,8 +22,8 @@ const Righbar = ({ profile, followers, online }) => {
                 <h4 className="rightbarTitlte">Online friends</h4>
                 <ul className="rightbarFriendsList">
                     {
-                        online?.map(user => (
-                            <Online key={user.userId} user={user} />
+                        online?.map((user, key) => (
+                            <Online key={key} user={user} />
                         ))
                     }
                 </ul>
@@ -57,9 +57,9 @@ const Righbar = ({ profile, followers, online }) => {
                 <h4 className="rightbarTitle" >Followers</h4>
                 <div className="rightbarFollowings">
                     {
-                        followers?.map(follower => {
+                        followers?.map((follower, key) => {
                             return (
-                                <div className="rightbarFollowing">
+                                <div className="rightbarFollowing" key={key}>
                                     <img className="rightbarFollowingImg" src={follower.profilePicture} alt="" onClick={() => goPublicProfile(follower.userId)} />
                                     <span className="rightbarFollowingName">{follower.fistname} {follower.lastname}</span>
                                 </div>
