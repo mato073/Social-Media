@@ -4,12 +4,15 @@ import Share from '../../components/share/Share'
 import Post from "../../components/post/Post"
 
 const Feed = ({ posts, notuser }) => {
-    console.log('posts', posts);
-    if (posts?.data == null || posts == null) {
+    if (posts.loading === true) {
         return (
             <div>Loading...</div>
         )
-    } else {
+    } else if (posts.error) {
+        return (
+            <div>An error as ocured !</div>
+        )
+    } else if (posts?.data !== null && posts.loading !== true) {
         return (
             <div className="feed" >
                 <div className="feedWrapper">

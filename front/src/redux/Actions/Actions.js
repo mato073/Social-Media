@@ -16,47 +16,69 @@ export const GET_USER_POSTS = {
     FAILURE: 'GET_USER_POSTS/FAILURE',
 };
 
+
+export const GET_TOKEN = {
+    REQUEST: 'GET_TOKEN/REQUEST',
+    SUCCESS: 'GET_TOKEN/SUCCESS',
+    FAILURE: 'GET_TOKEN/FAILURE',
+};
+
+// POSTS REQUEST \\
 export function send_posts_request() {
     return {
-        type: GET_POSTS.FAILURE,
+        type: GET_POSTS.REQUEST,
     }
 }
-
 export function send_posts_success(posts) {
     return {
         type: GET_POSTS.SUCCESS,
         posts
     }
 }
-
-
 export function send_posts_error() {
     return {
-        type: GET_POSTS.REQUEST,
+        type: GET_POSTS.FAILURE,
     }
 }
+// POSTS REQUEST \\
 
-
+// USER POSTS REQUEST \\
 export function send_user_posts_request() {
     return {
         type: GET_USER_POSTS.FAILURE,
     }
 }
-
 export function send_user_posts_success(posts) {
     return {
         type: GET_USER_POSTS.SUCCESS,
         posts
     }
 }
-
-
 export function send_user_posts_error() {
     return {
         type: GET_USER_POSTS.REQUEST,
     }
 }
+// USER POSTS REQUEST \\
 
+// USER TOKEN REQUEST \\
+export function send_token_request() {
+    return {
+        type: GET_TOKEN.FAILURE,
+    }
+}
+export function send_token_success(token) {
+    return {
+        type: GET_TOKEN.SUCCESS,
+        token
+    }
+}
+export function send_token_error() {
+    return {
+        type: GET_TOKEN.REQUEST,
+    }
+}
+// USER TOKEN REQUEST \\
 
 
 export function send_user(user) {
@@ -73,12 +95,6 @@ export function send_user_err(err) {
     }
 }
 
-export function send_token(token) {
-    return {
-        type: 'TOKEN',
-        token: token
-    }
-}
 
 export function send_token_err(err) {
     return {
@@ -103,10 +119,9 @@ export function get_token(email, password) {
     return async (dispatch) => {
         try {
             const result = await axios.post(url, data);
-            console.log('token =', result.data);
-            return dispatch(send_token(result.data));
+            return dispatch(send_token_success(result.data));
         } catch (err) {
-            return dispatch(send_token_err(err));
+            return dispatch(send_token_error());
         }
     }
 }
@@ -115,7 +130,6 @@ export function get_posts() {
     const url = `${REACT_APP_BASE_URL}/post/timeligne/all`
     return async (dispatch) => {
         try {
-            dispatch(send_posts_request());
             const result = await axiosInstance().get(url);
             const post = result.data.sort((p1, p2) => {
                 return new Date(p2.createdAt) - new Date(p1.createdAt);

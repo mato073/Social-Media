@@ -4,18 +4,19 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Righbar'
 import './home.css'
-import { get_user, get_posts } from '../../redux/Actions/Actions'
+import { get_user, get_posts, send_posts_request } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
 
-const Home = ({posts, user}) => {
+const Home = ({ posts, user }) => {
     const disptach = useDispatch();
     useEffect(() => {
         disptach(get_user());
+        disptach(send_posts_request())
         disptach(get_posts());
     }, []);
-    
-    if (posts.data == null || user == null ) {
+
+    if (posts.data == null || user == null) {
         return <div>Loading...</div>
     } else {
         return (

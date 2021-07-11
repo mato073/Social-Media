@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Righbar'
 import './profile.css'
 import { connect } from 'react-redux';
-import { get_user_posts } from '../../redux/Actions/Actions'
+import { get_user_posts, send_user_posts_request } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 
 const Profile = (props) => {
@@ -13,6 +13,7 @@ const Profile = (props) => {
     const disptach = useDispatch();
 
     useEffect(() => {
+        disptach(send_user_posts_request());
         disptach(get_user_posts());
     }, []);
 

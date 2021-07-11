@@ -1,15 +1,10 @@
 const initialState = {
-    user: [],
+    user: null,
     err: false
 };
 
 function User_reducer(state = initialState, action) {
     switch (action.type) {
-        case "USER":
-            return {
-                ...state,
-                user: action.user
-            };
         case "USER":
             return {
                 ...state,
