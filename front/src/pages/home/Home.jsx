@@ -4,19 +4,19 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Righbar'
 import './home.css'
-import { get_user, get_posts, send_posts_request } from '../../redux/Actions/Actions'
+import { get_user, get_posts, send_posts_request, send_user_request } from '../../redux/Actions/Actions'
 import { useDispatch } from 'react-redux'
 import { connect } from 'react-redux';
 
 const Home = ({ posts, user }) => {
     const disptach = useDispatch();
     useEffect(() => {
+        disptach(send_user_request());
         disptach(get_user());
         disptach(send_posts_request())
         disptach(get_posts());
     }, []);
-
-    if (posts.data == null || user == null) {
+    if (posts.data == null || user.user == null) {
         return <div>Loading...</div>
     } else {
         return (
@@ -25,7 +25,7 @@ const Home = ({ posts, user }) => {
                 <div className="homeContainer">
                     <Sidebar />
                     <Feed posts={posts} />
-                    <Rightbar home online={user?.followings} />
+                    <Rightbar home online={user.user?.followings} />
                 </div>
 
             </>
@@ -34,6 +34,6 @@ const Home = ({ posts, user }) => {
 }
 const mapStateToProps = (state) => ({
     posts: state.Posts_reducer.posts,
-    user: state.User_reducer.user.user
+    user: state.User_reducer.user
 });
 export default connect(mapStateToProps)(Home);

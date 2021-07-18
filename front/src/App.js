@@ -14,13 +14,13 @@ import {
   Redirect
 } from "react-router-dom";
 
-function App({ user }) {
+function App({ user, token }) {
   return (
     <Router>
       <Switch>
         <Route path="/" exact >
           {
-            user ?
+            user != null ?
               < Redirect to="/home" />
               :
               <Login />
@@ -28,7 +28,7 @@ function App({ user }) {
         </Route>
         <Route path="/register" exact>
           {
-            user ?
+            user != null ?
               < Redirect to="/home" />
               :
               <Register />
@@ -39,7 +39,7 @@ function App({ user }) {
         </Route>
         <Route path="/profile/:firstname/:lastname">
           {
-            user ?
+            user != null ?
               <Profile />
               :
               < Redirect to="/" />
@@ -51,7 +51,7 @@ function App({ user }) {
         </Route>
         <Route path="/messenger">
           {
-            user ?
+            user != null ?
               <Messenger />
               :
               < Redirect to="/" />
@@ -63,6 +63,7 @@ function App({ user }) {
   );
 }
 const mapStateToProps = (state) => ({
-  user: state.User_reducer.user.user
+  user: state.User_reducer.user?.user,
+  token: state.Token_reducer.token
 });
 export default connect(mapStateToProps)(App);

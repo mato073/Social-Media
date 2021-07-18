@@ -1,19 +1,32 @@
+import { GET_USER } from '../../Actions/Actions'
+
 const initialState = {
     user: null,
-    err: false
+    loading: false,
+    success: false,
+    error: null,
 };
 
 function User_reducer(state = initialState, action) {
     switch (action.type) {
-        case "USER":
+        case GET_USER.REQUEST:
             return {
                 ...state,
-                user: action.user
+                loading: true
             };
-        case "USER_ERR":
+        case GET_USER.SUCCESS:
             return {
                 ...state,
-                err: true
+                user: action.user,
+                loading: false,
+                success: true
+            };
+        case GET_USER.FAILURE:
+            return {
+                ...state,
+                error: action.error,
+                loading: false,
+                success: false
             };
         default:
             return state;

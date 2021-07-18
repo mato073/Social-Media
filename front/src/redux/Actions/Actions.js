@@ -3,7 +3,6 @@ import axiosInstance from '../../helper/axiosInterseptor'
 
 const { REACT_APP_BASE_URL } = process.env;
 
-const POSTS = "POSTS";
 export const GET_POSTS = {
     REQUEST: 'GET_POSTS/REQUEST',
     SUCCESS: 'GET_POSTS/SUCCESS',
@@ -21,6 +20,12 @@ export const GET_TOKEN = {
     REQUEST: 'GET_TOKEN/REQUEST',
     SUCCESS: 'GET_TOKEN/SUCCESS',
     FAILURE: 'GET_TOKEN/FAILURE',
+};
+
+export const GET_USER = {
+    REQUEST: 'GET_USER/REQUEST',
+    SUCCESS: 'GET_USER/SUCCESS',
+    FAILURE: 'GET_USER/FAILURE',
 };
 
 // POSTS REQUEST \\
@@ -80,35 +85,32 @@ export function send_token_error() {
 }
 // USER TOKEN REQUEST \\
 
-
-export function send_user(user) {
+// USER REQUEST \\
+export function send_user_request() {
     return {
-        type: 'USER',
-        user: user
+        type: GET_USER.REQUEST,
     }
 }
-
-export function send_user_err(err) {
+export function send_user_success(user) {
     return {
-        type: 'USER_ERR',
-        err: err
+        type: GET_USER.SUCCESS,
+        user
     }
 }
-
-
-export function send_token_err(err) {
+export function send_user_error(error) {
     return {
-        type: 'TOKEN_ERR',
-        err: err
+        type: GET_USER.FAILURE,
+        error
     }
 }
+// USER REQUEST \\
 
-export function get_notification(planning) {
+/* export function get_notification(planning) {
     return {
         type: 'NOTIFICATIONS',
         planning: planning
     }
-}
+} */
 
 export function get_token(email, password) {
     const url = `${REACT_APP_BASE_URL}/auth/login`
@@ -121,7 +123,8 @@ export function get_token(email, password) {
             const result = await axios.post(url, data);
             return dispatch(send_token_success(result.data));
         } catch (err) {
-            return dispatch(send_token_error());
+            console.log(err);
+            //return dispatch(send_token_error());
         }
     }
 }
@@ -164,11 +167,12 @@ export function get_user() {
     return async (dispatch) => {
         try {
             const result = await axiosInstance().get(url);
-
-            return dispatch(send_user(result.data));
-        } catch (err) {
-
-            return dispatch(send_user_err(err));
+            console.log('user =', result.data);
+            console.log(result.data);
+            return dispatch(send_user_success(result.data));
+        } catch (error) {
+            console.log('error =', error);
+            return dispatch(send_user_error(error));
         }
     }
 }

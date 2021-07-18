@@ -9,12 +9,15 @@ const initialState = {
 
 function Token_reducer(state = initialState, action) {
     switch (action.type) {
-        case "TOKEN":
+        case GET_TOKEN.SUCCESS:
             return {
                 ...state,
-                token: action.token
-            };
+                token: action.token,
+                loading: false,
+                success: true,
+                error: false,
 
+            };
         case GET_TOKEN.REQUEST:
             return {
                 ...state,
@@ -24,22 +27,13 @@ function Token_reducer(state = initialState, action) {
                 error: null,
 
             };
-        case GET_TOKEN.SUCCESS:
-            return {
-                ...state,
-                token: action.posts,
-                loading: false,
-                success: true,
-                error: false,
-
-            };
         case GET_TOKEN.FAILURE:
             return {
                 ...state,
                 token: null,
                 loading: false,
                 success: false,
-                error: true,
+                error: action.error,
             };
         default:
             return state;
