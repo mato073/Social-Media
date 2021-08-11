@@ -4,21 +4,32 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Righbar'
 import './home.css'
-import { get_user, get_posts, send_posts_request, send_user_request } from '../../redux/Actions/Actions'
-import { useDispatch } from 'react-redux'
-import { connect } from 'react-redux';
+import { send_posts_request, send_user_request } from '../../redux/Actions/Actions'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { get_posts_state, get_user_state } from '../../redux/Saga/selectors/selector'
 
-const Home = ({ posts, user }) => {
+const Home = () => {
     const disptach = useDispatch();
+
+    const {
+        posts,
+        user
+    } = useSelector(
+        state => ({
+            posts: get_posts_state(state),
+            user: get_user_state(state)
+        }),
+        shallowEqual
+    );
+
     useEffect(() => {
         disptach(send_user_request());
-        disptach(get_user());
         disptach(send_posts_request())
-        disptach(get_posts());
     }, []);
-    if (posts.data == null || user.user == null) {
+    if (posts.data == null || posts.loading === true || user.user == null) {
         return <div>Loading...</div>
-    } else {
+    }
+    if (posts.data !== null && posts.loading !== true) {
         return (
             <>
                 <Topbar />
@@ -31,9 +42,8 @@ const Home = ({ posts, user }) => {
             </>
         )
     }
+    if (!posts.success || !user.success) {
+        return <div>Error !</div>
+    }
 }
-const mapStateToProps = (state) => ({
-    posts: state.Posts_reducer.posts,
-    user: state.User_reducer.user
-});
-export default connect(mapStateToProps)(Home);
+export default Home

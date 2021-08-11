@@ -8,16 +8,10 @@ const initialState = {
         success: false,
         error: null,
     },
-    user_posts: {
-        data: null,
-        loading: false,
-        success: false,
-        error: null,
-    }
 };
 
 
-function Posts_reducer(state = initialState, action) {
+export function Posts_reducer(state = initialState, action) {
     switch (action.type) {
         case GET_POSTS.REQUEST:
             return {
@@ -49,6 +43,22 @@ function Posts_reducer(state = initialState, action) {
                     error: true,
                 },
             };
+        default:
+            return state;
+    }
+}
+
+const initialStateUser = {
+    user_posts: {
+        data: null,
+        loading: false,
+        success: false,
+        error: null,
+    }
+};
+
+export function User_posts_reducer(state = initialStateUser, action) {
+    switch (action.type) {
         case GET_USER_POSTS.REQUEST:
             return {
                 ...state,
@@ -63,7 +73,7 @@ function Posts_reducer(state = initialState, action) {
             return {
                 ...state,
                 user_posts: {
-                    data: action.posts,
+                    data: action.data,
                     loading: false,
                     success: true,
                     error: false,
@@ -84,28 +94,3 @@ function Posts_reducer(state = initialState, action) {
             return state;
     }
 }
-
-
-/* function Posts_reducer(state = initialState, action) {
-    switch (action.type) {
-        case GET_POSTS. :
-            return {
-                ...state,
-                posts: {
-        data: null,
-        loading: false,
-        success: false,
-        error: null,
-    },
-            };
-        case "USER_POSTS":
-            return {
-                ...state,
-                user_posts: action.user_posts
-            };
-        default:
-            return state;
-    }
-} */
-
-export default Posts_reducer;

@@ -3,17 +3,32 @@ import './post.css'
 import { MoreVert } from '@material-ui/icons'
 import { format } from 'timeago.js';
 import { useHistory } from "react-router-dom";
+import { likePost } from '../../services/post.service';
+import { get_user_state } from '../../redux/Saga/selectors/selector'
+import { useSelector, shallowEqual } from 'react-redux'
 
-const Post = (props) => {
+
+const Post = ({ post }) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-    const { desc, img, createdAt, likes, user, userId } = props.post
+    const { desc, img, createdAt, likes, user, userId } = post
     const [liked, setLiked] = React.useState(false);
     const [likeNumber, setLikeNumber] = React.useState(likes.length);
     const history = useHistory();
 
-    const likePost = () => {
+    const userData = useSelector(
+        state => ({
+            user: get_user_state(state)
+        }),
+        shallowEqual
+    );
+    React.useEffect(() => {
+        post.likes.includes(userData.user.user.user._id) ? setLiked(true) : setLiked(false)
+    }, [post])
+
+    const like = async () => {
         setLikeNumber(liked ? likeNumber - 1 : likeNumber + 1);
         setLiked(!liked);
+        await likePost(post._id);
     }
 
     const goPublicProfile = (userId) => {
@@ -25,7 +40,7 @@ const Post = (props) => {
             <div className="postWapper">
                 <div className="postTop">
                     <div className="postTopleft">
-                        <img className="postProfileImg" alt="" src={user.userphoto} onClick={() => goPublicProfile(userId) } ></img>
+                        <img className="postProfileImg" alt="" src={user.userphoto} onClick={() => goPublicProfile(userId)} ></img>
                         <span className="postUserName"> {`${user.firstname} ${user.lastname}`} </span>
                         <span className="postDate"> {format(createdAt)} </span>
                     </div>
@@ -41,8 +56,8 @@ const Post = (props) => {
             <div className="postWapper">
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        <img className="likeIcon" src={`${PF}/like.png`} alt="" onClick={likePost} />
-                        <img className="likeIcon" src={`${PF}/heart.png`} alt="" onClick={likePost} />
+                        <img className="likeIcon" src={`${PF}/like.png`} alt="" onClick={like} />
+                        <img className="likeIcon" src={`${PF}/heart.png`} alt="" onClick={like} />
                         <span className="likeCounter">{likeNumber}</span>
                     </div>
                     <div className="postBottomRight">

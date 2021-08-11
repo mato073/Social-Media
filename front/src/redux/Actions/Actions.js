@@ -3,18 +3,17 @@ import axiosInstance from '../../helper/axiosInterseptor'
 
 const { REACT_APP_BASE_URL } = process.env;
 
-export const GET_POSTS = {
-    REQUEST: 'GET_POSTS/REQUEST',
-    SUCCESS: 'GET_POSTS/SUCCESS',
-    FAILURE: 'GET_POSTS/FAILURE',
+const actionCreatotHeader = (type) => {
+    return {
+        REQUEST: `${type}/REQUEST`,
+        SUCCESS: `${type}/SUCCESS`,
+        FAILURE: `${type}/FAILURE`,
+    }
 }
 
-export const GET_USER_POSTS = {
-    REQUEST: 'GET_USER_POSTS/REQUEST',
-    SUCCESS: 'GET_USER_POSTS/SUCCESS',
-    FAILURE: 'GET_USER_POSTS/FAILURE',
-};
-
+export const GET_POSTS = actionCreatotHeader('GET_POSTS');
+export const GET_USER = actionCreatotHeader('GET_USER');
+export const GET_USER_POSTS = actionCreatotHeader('GET_USER_POSTS');
 
 export const GET_TOKEN = {
     REQUEST: 'GET_TOKEN/REQUEST',
@@ -22,11 +21,11 @@ export const GET_TOKEN = {
     FAILURE: 'GET_TOKEN/FAILURE',
 };
 
-export const GET_USER = {
-    REQUEST: 'GET_USER/REQUEST',
-    SUCCESS: 'GET_USER/SUCCESS',
-    FAILURE: 'GET_USER/FAILURE',
-};
+export const Action = {
+    GET_POSTS,
+    GET_USER,
+    GET_USER_POSTS
+}
 
 // POSTS REQUEST \\
 export function send_posts_request() {
@@ -40,9 +39,10 @@ export function send_posts_success(posts) {
         posts
     }
 }
-export function send_posts_error() {
+export function send_posts_error(error) {
     return {
         type: GET_POSTS.FAILURE,
+        error
     }
 }
 // POSTS REQUEST \\
@@ -50,18 +50,18 @@ export function send_posts_error() {
 // USER POSTS REQUEST \\
 export function send_user_posts_request() {
     return {
-        type: GET_USER_POSTS.FAILURE,
+        type: GET_USER_POSTS.REQUEST,
     }
 }
-export function send_user_posts_success(posts) {
+export function send_user_posts_success(data) {
     return {
         type: GET_USER_POSTS.SUCCESS,
-        posts
+        data
     }
 }
 export function send_user_posts_error() {
     return {
-        type: GET_USER_POSTS.REQUEST,
+        type: GET_USER_POSTS.FAILURE,
     }
 }
 // USER POSTS REQUEST \\
@@ -129,7 +129,7 @@ export function get_token(email, password) {
     }
 }
 
-export function get_posts() {
+/* export function get_posts() {
     const url = `${REACT_APP_BASE_URL}/post/timeligne/all`
     return async (dispatch) => {
         try {
@@ -143,13 +143,12 @@ export function get_posts() {
             return dispatch(send_posts_error());
         }
     }
-}
+} */
 
 export function get_user_posts() {
     const url = `${REACT_APP_BASE_URL}/post/timeligne/user`
     return async (dispatch) => {
         try {
-            dispatch(send_user_posts_request());
             const result = await axiosInstance().get(url);
             const post = result.data.sort((p1, p2) => {
                 return new Date(p2.createdAt) - new Date(p1.createdAt);
@@ -167,11 +166,8 @@ export function get_user() {
     return async (dispatch) => {
         try {
             const result = await axiosInstance().get(url);
-            console.log('user =', result.data);
-            console.log(result.data);
             return dispatch(send_user_success(result.data));
         } catch (error) {
-            console.log('error =', error);
             return dispatch(send_user_error(error));
         }
     }

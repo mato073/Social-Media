@@ -10,11 +10,15 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import { Chat } from '@material-ui/icons'
 import { connect } from 'react-redux';
 import { followUser, unFollowUser } from '../../services/follow.service'
+import { useSelector, shallowEqual } from 'react-redux'
+import { get_user_state } from '../../redux/Saga/selectors/selector'
+import { useHistory } from "react-router-dom";
 
 const { REACT_APP_BASE_URL } = process.env;
 
 const PublicProfile = ({ followings }) => {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const history = useHistory();
     const { id } = useParams();
     const [followed, serFollowed] = useState(false);
     const [user, setUser] = useState({
@@ -30,6 +34,18 @@ const PublicProfile = ({ followings }) => {
         error: null
     })
 
+    const {
+        Curentuser
+    } = useSelector(
+        state => ({
+            Curentuser: get_user_state(state)
+        }),
+        shallowEqual
+    );
+    useEffect(() => {
+        if (id === Curentuser.user.user._id)
+            history.push(`/profile/${Curentuser.user.user.firstname}/${Curentuser.user.user.lastname}`)
+    }, [])
 
     useEffect(() => {
         const fetchUser = async () => {
