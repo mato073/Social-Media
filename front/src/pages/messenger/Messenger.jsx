@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Topbar from '../../components/topbar/Topbar'
 import './messenger.css'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
@@ -12,10 +12,15 @@ import { send_conversation_request } from '../../redux/Actions/Actions'
 import { get_conversation_state, get_user_state } from '../../redux/Saga/selectors/selector'
 import axios from 'axios'
 
+import { io } from 'socket.io-client'
+
 const Messenger = () => {
     const disptach = useDispatch();
     const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState("")
     const [curentConversation, setCurentConversation] = useState("")
+    const socket = useRef(io('ws://localhost:8089'));
+    const messageRef = useRef();
     const {
         conversations,
         curentUser
@@ -26,6 +31,10 @@ const Messenger = () => {
         }),
         shallowEqual
     );
+
+    useEffect(() => {
+        socket.current.emit('addUser', curentUser.user.user._id);
+    }, [socket, curentUser.user.user]);
 
     useEffect(() => {
         disptach(send_conversation_request());
@@ -42,7 +51,26 @@ const Messenger = () => {
         getConversation();
     }, [curentConversation])
 
-    console.log('conversation =', messages);
+    useEffect(() => {
+        messageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
+    const sendNewMessage = async () => {
+        if (newMessage !== "" && curentConversation !== "") {
+            const message = {
+                "conversationId": curentConversation,
+                "sender": curentUser.user.user._id,
+                "text": newMessage
+            }
+
+            try {
+                const { data } = await axios.post('http://localhost:8080/message', message)
+                setMessages([...messages, data])
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
     return (
         <>
             <Topbar />
@@ -66,7 +94,11 @@ const Messenger = () => {
                         <div className="chatBoxTop">
                             {
                                 messages.map((item, key) => {
-                                    return < Messages message={item} user={curentUser.user.user} key={key} />
+                                    return (
+                                        <div ref={messageRef}>
+                                            <Messages message={item} user={curentUser.user.user} key={key} />
+                                        </div>
+                                    )
                                 })
                             }
                         </div>
@@ -74,8 +106,10 @@ const Messenger = () => {
                             <textarea
                                 className="chatMessageInput"
                                 placeholder="write something..."
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                value={newMessage}
                             ></textarea>
-                            <button className="chatSubmitButton">
+                            <button className="chatSubmitButton" onClick={sendNewMessage}>
                                 Send
                             </button>
                         </div>

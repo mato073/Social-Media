@@ -3,7 +3,6 @@ import './messages.css'
 import { format } from 'timeago.js';
 
 const Messages = ({ message, user }) => {
-    console.log(user)
     return (
         <div className={message.sender === user._id ? 'message own' : 'message'}>
             <div className="messageTop">
