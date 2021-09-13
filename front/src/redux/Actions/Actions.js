@@ -14,6 +14,7 @@ const actionCreatotHeader = (type) => {
 export const GET_POSTS = actionCreatotHeader('GET_POSTS');
 export const GET_USER = actionCreatotHeader('GET_USER');
 export const GET_USER_POSTS = actionCreatotHeader('GET_USER_POSTS');
+export const GET_CONVERSATION = actionCreatotHeader('GET_CONVERSATION');
 
 export const GET_TOKEN = {
     REQUEST: 'GET_TOKEN/REQUEST',
@@ -24,7 +25,8 @@ export const GET_TOKEN = {
 export const Action = {
     GET_POSTS,
     GET_USER,
-    GET_USER_POSTS
+    GET_USER_POSTS,
+    GET_CONVERSATION
 }
 
 // POSTS REQUEST \\
@@ -105,12 +107,26 @@ export function send_user_error(error) {
 }
 // USER REQUEST \\
 
-/* export function get_notification(planning) {
+
+// CONVERSATION REQUEST \\
+export function send_conversation_request() {
     return {
-        type: 'NOTIFICATIONS',
-        planning: planning
+        type: GET_CONVERSATION.REQUEST,
     }
-} */
+}
+export function send_conversation_success(data) {
+    return {
+        type: GET_CONVERSATION.SUCCESS,
+        data
+    }
+}
+export function send_conversation_error(error) {
+    return {
+        type: GET_CONVERSATION.FAILURE,
+        error
+    }
+}
+// CONVERSATION REQUEST \\
 
 export function get_token(email, password) {
     const url = `${REACT_APP_BASE_URL}/auth/login`
@@ -128,22 +144,6 @@ export function get_token(email, password) {
         }
     }
 }
-
-/* export function get_posts() {
-    const url = `${REACT_APP_BASE_URL}/post/timeligne/all`
-    return async (dispatch) => {
-        try {
-            const result = await axiosInstance().get(url);
-            const post = result.data.sort((p1, p2) => {
-                return new Date(p2.createdAt) - new Date(p1.createdAt);
-            })
-            return dispatch(send_posts_success(post));
-        } catch (err) {
-
-            return dispatch(send_posts_error());
-        }
-    }
-} */
 
 export function get_user_posts() {
     const url = `${REACT_APP_BASE_URL}/post/timeligne/user`

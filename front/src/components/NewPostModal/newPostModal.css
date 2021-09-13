@@ -74,12 +74,13 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .closeModalIcon {
     color: #B1B3B9;
-    font-size: 25px;
-    font-weight: 300;
+    font-size: 22px;
+    font-weight: 500;
 }
 
 .modalChooseParm {

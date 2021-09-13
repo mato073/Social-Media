@@ -1,20 +1,35 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './newPostModal.css'
 import { PermMedia, Label, Room, EmojiEmotions } from '@material-ui/icons'
 import { newPost } from '../../services/post.service';
 
-const NewPostModal = ({ setOpen, user }) => {
+const NewPostModal = ({ open, setOpen, user }) => {
 
     const [openPhoto, setOpenPhoto] = useState(false);
     const [imageLink, setImgeLink] = useState("");
     const [desc, setDesc] = useState("");
+    const ref = useRef();
+    useEffect(() => {
+        const clickOutside = e => {
+            if (open && ref.current && !ref.current.contains(e.target)) {
+                setOpen(false)
+            }
+        }
+
+        document.addEventListener("mousedown", clickOutside);
+
+        return () => {
+            document.addEventListener("mousedown", clickOutside);
+        }
+
+    }, [open])
 
     const sendPost = async () => {
         await newPost(imageLink, desc)
     }
 
     return (
-        <div className="modalContainer">
+        <div className="modalContainer" ref={ref}>
             <div className="headerShareModal">
                 <span className="headerShareModalSpan">Create a new post</span>
                 <button className="closeModalButton" onClick={() => setOpen(false)}>

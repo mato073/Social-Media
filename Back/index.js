@@ -10,16 +10,18 @@ var cors = require('cors')
 const userRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/posts')
+const conversationRoute = require('./routes/conversations')
+const messageRoute = require('./routes/messages')
 
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
-.then(()=>{
-    console.log("Connected to the Database");
-})
-.catch(err => {
-    console.log("err =", err);
-});;
+    .then(() => {
+        console.log("Connected to the Database");
+    })
+    .catch(err => {
+        console.log("err =", err);
+    });;
 
 app.use(express.json());
 app.use(helmet());
@@ -29,6 +31,8 @@ app.use(cors())
 app.use("/users", userRoute);
 app.use("/auth", authRoute);
 app.use("/post", postRoute);
+app.use("/conversation", conversationRoute);
+app.use("/message", messageRoute);
 
 
 app.listen(8080, () => {

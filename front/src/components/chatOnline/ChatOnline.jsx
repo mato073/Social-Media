@@ -14,7 +14,7 @@ const ChatOnline = () => {
                       Matt Stone
                   </div>
               </div> */
-        < div className="chatOnline" >
+        <div>
             <div className="chatOnlineFriend">
                 <div className="chatOnlineImgContainer">
                     <img

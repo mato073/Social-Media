@@ -25,6 +25,8 @@ const Feed = ({ posts, notuser }) => {
                 </div>
             </div>
         )
+    } else {
+        return null
     }
 }
 

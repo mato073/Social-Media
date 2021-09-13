@@ -1,14 +1,26 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import './conversation.css'
+const { REACT_APP_BASE_URL } = process.env;
 
-const Conversation = () => {
+const Conversation = ({ conversation, curentUser, setConversation }) => {
+    const [user, setUser] = useState(null)
+    useEffect(() => {
+        const fetchUser = async () => {
+            const id = conversation.members.filter((item) => item != curentUser._id)
+            const data = await axios.get(`${REACT_APP_BASE_URL}/post/publicTimeligne/${id}`);
+            setUser(data.data.user)
+        }
+        fetchUser()
+    }, [])
     return (
-        <div className="conversationContainer">
+        <div className="conversationContainer" onClick={setConversation}>
             <img
                 className="conversationImg"
-                src="https://static.rabbitfinder.com/photos/35887/194248.jpg?1310126633"
+                src={user?.profilePicture}
                 alt=""
             />
-            <span className="conversationText">Jack Black</span>
+            <span className="conversationText">{user?.firstname} {user?.lastname}</span>
         </div>
     )
 }

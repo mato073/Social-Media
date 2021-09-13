@@ -50,7 +50,7 @@ const Post = ({ post }) => {
                 </div>
             </div>
             <div className="postCenter">
-                {desc !== undefined && (<span className="postText">{desc}</span>)}
+                {desc != undefined && desc != "" && (<span className="postText">{desc}</span>)}
                 <img className="postImg" src={img} alt="" />
             </div>
             <div className="postWapper">

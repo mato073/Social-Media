@@ -1,20 +1,22 @@
 import React from 'react'
 import './messages.css'
+import { format } from 'timeago.js';
 
-const Messages = ({ own }) => {
+const Messages = ({ message, user }) => {
+    console.log(user)
     return (
-        <div className={own ? 'message own' : 'message'}>
+        <div className={message.sender === user._id ? 'message own' : 'message'}>
             <div className="messageTop">
                 <img
                     className="messageImg"
-                    src="https://static.rabbitfinder.com/photos/35887/194248.jpg?1310126633"
+                    src={user._id === message.sender ? user?.profilePicture || "https://static.rabbitfinder.com/photos/35887/194248.jpg?1310126633" : "https://lignesdeforce.files.wordpress.com/2018/09/capture-d_ecc81cran-2018-08-30-acc80-18-12-37.png?w=252&h=300"}
                     alt=""
                 />
-                <p className="messageText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!</p>
+                <p className="messageText">{message.text}</p>
             </div>
-            <div className="messageBottom">
-                1 Hour ago
-            </div>
+            <span className="messageBottom">
+                {format(message.createdAt)}
+            </span>
         </div>
     )
 }

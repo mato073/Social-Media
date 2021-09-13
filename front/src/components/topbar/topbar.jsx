@@ -1,15 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import DropDown from '../dropDown/dropDown';
+
+import NotificationMenu from '../notificationMenu/notificationMenu';
 
 const Topbar = ({ user }) => {
 
+    const [open, setOpen] = useState(false);
     const history = useHistory();
     const goToProfile = () => {
         history.replace(`/profile/${user.firstname}/${user.lastname}`)
+    }
+
+    const Test = (props) => {
+        return (
+            <a href="" className="dropDowItemContainer">
+                <span className="dropDownItemLeftIcon">{props.icon}</span>
+                {props.children}
+                <span className="dropDownItemRightIcon">{props.icon}</span>
+            </a>
+        )
     }
 
     if (!user) {
@@ -37,18 +51,29 @@ const Topbar = ({ user }) => {
                         <div className="topbarIconItem">
                             <Person />
                             <span className="topbarIconBadge">1</span>
+
                         </div>
                         <div className="topbarIconItem">
                             <Chat />
                             <span className="topbarIconBadge">1</span>
+
                         </div>
-                        <div className="topbarIconItem">
+                        <div className="topbarIconItem" onClick={() => setOpen(!open)}>
                             <Notifications />
                             <span className="topbarIconBadge">1</span>
                         </div>
                     </div>
-                    <img /* src={imglink} */ src={user.profilePicture} alt="" className="topbarImg" onClick={goToProfile} />
+                    <div>
+                        <img /* src={imglink} */ src={user.profilePicture} alt="" className="topbarImg" onClick={goToProfile} />
+                    </div>
+
                 </div >
+                <div>
+                    <DropDown open={open} setOpen={(value) => setOpen(value)} >
+                        <NotificationMenu />
+                    </DropDown>
+                </div>
+
             </div >
         )
     }

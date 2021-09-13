@@ -30,7 +30,7 @@ const Righbar = ({ profile, followers, online }) => {
             </>
         )
     }
-
+    console.log('follower list =', followers)
     const ProfileRightBar = () => {
 
         return (

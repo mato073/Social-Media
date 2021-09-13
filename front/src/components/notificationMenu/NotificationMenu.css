@@ -1,0 +1,51 @@
+.notificationMenuContainer {
+  width: 400px;
+}
+
+.dropDowItemContainer {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  transition: background 500;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+;
+.dropDowItemContainer:hover {
+  background-color: blue;
+}
+
+.notificationItem {
+  display: flex;
+  flex-direction: row;
+  border-radius: 6px;
+  padding: 10 px;
+}
+
+.notificationItem:hover {
+  background-color: #34373C;
+  cursor: pointer;
+}
+
+.notificationItem:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.notificationItemMessage {
+  margin-left: 5px;
+}
+
+.notificationContent {
+  display: flex;
+}
+
+.notificationMessage {
+  color: #fff;
+}
+
+.notificationDate {
+  margin-top: 5px;
+  color: #4395FF;
+  font-size: 12px;
+}

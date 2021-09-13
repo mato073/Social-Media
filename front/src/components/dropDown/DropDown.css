@@ -1,0 +1,26 @@
+.dropDownContainer {
+  position: absolute;
+  background-color: #242526;
+  transform: translate(-105%);
+  border: blue;
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.dropDowItemContainer {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  transition: background 500;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.dropDowItemContainer:hover {
+  background-color: blue;
+}
+
+.dropDownItemLeftIcon {}
+
+.dropDownItemRightIcon {}

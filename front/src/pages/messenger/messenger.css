@@ -1,17 +1,21 @@
 .messengerContainer {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 50px);
     display: flex;
+    background-color: red;
 }
 
 .chatMenu {
     flex: 3.5;
+    background-color: #18191A;
 }
 
-.chatMenuInput {
+.conversationSearchbar {
     width: 90%;
     padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid grey;
+    background-color: #FAFAFA;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .chatMenuInput:focus {
@@ -20,20 +24,22 @@
 
 .chatBox {
     flex: 4.5;
+    background-color: #18191A;
+    border: 2px solid #2A2C31;
 }
 
 .chatBoxTop {
-    /*   top: 0;
-    position: absolute; */
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
 }
 
 .chatOnline {
     flex: 3;
+    background-color: #18191A;
 }
 
 .chatOnlineWraper, .chatBoxWraper, .chatMenuWraper {
     padding: 10px;
-    height: 100%;
 }
 
 .chatBoxBottom {
@@ -41,6 +47,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: absolute;
+    bottom: 0
 }
 
 .chatMessageInput {
@@ -57,4 +65,8 @@
     cursor: pointer;
     background-color: teal;
     color: white;
+}
+
+.messageBottom {
+    color: #FAFAFA;
 }
