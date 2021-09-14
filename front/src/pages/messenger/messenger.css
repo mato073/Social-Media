@@ -1,7 +1,8 @@
 .messengerContainer {
     height: calc(100vh - 50px);
     display: flex;
-    background-color: red;
+    background-color: #18191A;
+    overflow-y: hidden;
 }
 
 .chatMenu {
@@ -29,7 +30,7 @@
 }
 
 .chatBoxTop {
-    height: calc(100vh - 76px);
+    height: calc(100vh - 190px);
     overflow-y: scroll;
 }
 
@@ -47,14 +48,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 .chatMessageInput {
-    width: 80%;
     height: 90px;
     padding: 10px;
+    border-radius: 15px;
+    max-width: 80%;
+    min-width: 80%;
+    resize: none;
+    background-color: #3E4042;
+    border: none;
+    color: lightgray;
+}
+
+.chatMessageInput:focus {
+    outline: none;
 }
 
 .chatSubmitButton {
@@ -63,7 +75,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: teal;
+    background-color: #578FFC;
     color: white;
 }
 

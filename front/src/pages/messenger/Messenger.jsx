@@ -14,12 +14,16 @@ import axios from 'axios'
 
 import { io } from 'socket.io-client'
 
+const { REACT_APP_BASE_URL } = process.env;
+
 const Messenger = () => {
     const disptach = useDispatch();
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("")
     const [curentConversation, setCurentConversation] = useState("")
-    const socket = useRef(io('ws://localhost:8089'));
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [test, setTest] = useState(null);
+    const socket = useRef();
     const messageRef = useRef();
     const {
         conversations,
@@ -33,8 +37,23 @@ const Messenger = () => {
     );
 
     useEffect(() => {
+        socket.current = io('ws://localhost:8089');
+        socket.current.on('newMessage', (message) => {
+            console.log('newMessage =', message)
+            setArrivalMessage({ ...message, createAt: Date.now() });
+        })
+    }, []);
+
+    useEffect(() => {
+        arrivalMessage &&
+            curentConversation?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, curentConversation]);
+
+    useEffect(() => {
         socket.current.emit('addUser', curentUser.user.user._id);
-    }, [socket, curentUser.user.user]);
+    }, [curentUser.user.user]);
+
 
     useEffect(() => {
         disptach(send_conversation_request());
@@ -43,8 +62,8 @@ const Messenger = () => {
 
     useEffect(() => {
         const getConversation = async () => {
-            if (curentConversation != null && curentConversation !== "") {
-                const data = await axios.get(`http://localhost:8080/message/${curentConversation}`)
+            if (curentConversation != null) {
+                const data = await axios.get(`http://localhost:8080/message/${curentConversation._id}`)
                 if (data != null) setMessages(data.data);
             }
         }
@@ -55,22 +74,43 @@ const Messenger = () => {
         messageRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    const sendNewMessage = async () => {
+    useEffect(() => {
+        const fetchUser = async (id) => {
+            const data = await axios.get(`${REACT_APP_BASE_URL}/post/publicTimeligne/${id}`);
+            setTest(data.data.user)
+        }
+        if (curentConversation !== "") {
+            const reciverId = curentConversation?.members.find(
+                (member) => member !== curentUser.user.user._id
+            );
+            fetchUser(reciverId);
+        }
+
+    }, [curentConversation])
+
+    const sendNewMessage = async (e) => {
+        e.preventDefault();
         if (newMessage !== "" && curentConversation !== "") {
             const message = {
-                "conversationId": curentConversation,
+                "conversationId": curentConversation._id,
                 "sender": curentUser.user.user._id,
                 "text": newMessage
             }
-
+            const userId = curentUser.user.user._id;
+            const reciverId = curentConversation.members.find(
+                (member) => member !== userId
+            );
+            socket.current.emit('sendMessage', { userId, reciverId, text: newMessage });
             try {
                 const { data } = await axios.post('http://localhost:8080/message', message)
                 setMessages([...messages, data])
+                setNewMessage("");
             } catch (err) {
                 console.log(err)
             }
         }
     }
+    console.log('test', curentConversation)
     return (
         <>
             <Topbar />
@@ -83,7 +123,7 @@ const Messenger = () => {
                         </div>
                         {
                             conversations?.data != null && conversations.data.map((item, key) => {
-                                return <Conversation conversation={item} key={key} curentUser={curentUser.user.user} setConversation={() => setCurentConversation(item._id)} />
+                                return <Conversation conversation={item} curentConversation={curentConversation}  key={key} curentUser={curentUser.user.user} setConversation={() => setCurentConversation(item)} />
                             })
                         }
 
@@ -96,7 +136,7 @@ const Messenger = () => {
                                 messages.map((item, key) => {
                                     return (
                                         <div ref={messageRef}>
-                                            <Messages message={item} user={curentUser.user.user} key={key} />
+                                            <Messages message={item} user={curentUser.user.user} reciver={test} key={key} />
                                         </div>
                                     )
                                 })

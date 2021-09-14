@@ -3,7 +3,7 @@ import axios from 'axios'
 import './conversation.css'
 const { REACT_APP_BASE_URL } = process.env;
 
-const Conversation = ({ conversation, curentUser, setConversation }) => {
+const Conversation = ({ conversation, curentConversation, curentUser, setConversation }) => {
     const [user, setUser] = useState(null)
     useEffect(() => {
         const fetchUser = async () => {
@@ -13,8 +13,10 @@ const Conversation = ({ conversation, curentUser, setConversation }) => {
         }
         fetchUser()
     }, [])
+    console.log(curentConversation, conversation._id )
+    console.log('test', curentConversation)
     return (
-        <div className="conversationContainer" onClick={setConversation}>
+        <div className="conversationContainer" style={curentConversation._id === conversation._id ? { backgroundColor: '#303031' } : { backgroundColor: '' }} onClick={() => setConversation()} >
             <img
                 className="conversationImg"
                 src={user?.profilePicture}
