@@ -23,6 +23,8 @@ const Messenger = () => {
     const [curentConversation, setCurentConversation] = useState("")
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [test, setTest] = useState(null);
+    const [onlineFollowers, setOnlineFollowers] = useState([]);
+    const [onlineFollowings, setOnlineFollowings] = useState([]);
     const socket = useRef();
     const messageRef = useRef();
     const {
@@ -39,8 +41,23 @@ const Messenger = () => {
     useEffect(() => {
         socket.current = io('ws://localhost:8089');
         socket.current.on('newMessage', (message) => {
-            console.log('newMessage =', message)
             setArrivalMessage({ ...message, createAt: Date.now() });
+        })
+        socket.current.on('getUsers', (users) => {
+            const { followings, followers } = curentUser.user.user
+
+            const followersList = []
+            const followingsList = []
+
+            users.map((user) => {
+                const follower = followers.find((item) => item.userId === user.userId)
+                if (follower != null) followersList.push({ ...follower })
+                const following = followings.find((item) => item.userId === user.userId)
+                if (following != null) followersList.push({ ...following })
+            })
+            setOnlineFollowers(followersList);
+            setOnlineFollowings(followingsList);
+
         })
     }, []);
 
@@ -110,7 +127,6 @@ const Messenger = () => {
             }
         }
     }
-    console.log('test', curentConversation)
     return (
         <>
             <Topbar />
@@ -123,7 +139,7 @@ const Messenger = () => {
                         </div>
                         {
                             conversations?.data != null && conversations.data.map((item, key) => {
-                                return <Conversation conversation={item} curentConversation={curentConversation}  key={key} curentUser={curentUser.user.user} setConversation={() => setCurentConversation(item)} />
+                                return <Conversation conversation={item} curentConversation={curentConversation} key={key} curentUser={curentUser.user.user} setConversation={() => setCurentConversation(item)} />
                             })
                         }
 
@@ -157,11 +173,16 @@ const Messenger = () => {
                 </div>
                 <div className="chatOnline">
                     <div className="chatOnlineWraper">
-                        < ChatOnline />
-                        < ChatOnline />
-                        < ChatOnline />
-                        < ChatOnline />
-                        < ChatOnline />
+                        <div>
+                            {onlineFollowings.map((user) => {
+                                return < ChatOnline user={user} />
+                            })}
+                        </div>
+                        <div>
+                            {onlineFollowers.map((user) => {
+                                return < ChatOnline user={user} />
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -31,6 +31,10 @@
   right: 2px;
 }
 
+.chatOnlineName {
+  color: #A0A19B;
+}
+
 @media screen and (max-width: 768px) {
   .chatOnlineName {
     display: none;

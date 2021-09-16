@@ -14,7 +14,6 @@ const Conversation = ({ conversation, curentConversation, curentUser, setConvers
         fetchUser()
     }, [])
     console.log(curentConversation, conversation._id )
-    console.log('test', curentConversation)
     return (
         <div className="conversationContainer" style={curentConversation._id === conversation._id ? { backgroundColor: '#303031' } : { backgroundColor: '' }} onClick={() => setConversation()} >
             <img
